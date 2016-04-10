@@ -13,6 +13,7 @@ router.get('/', function (req, res, next) {
 router.get('/order', function (req, res, next) {
     db.order.find(function (err, orders) {
         if (err) return console.error(err);
+
         res.send(orders);
     })
 });

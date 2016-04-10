@@ -46,10 +46,10 @@ var user_tag = new Schema({
 });
 
 module.exports = {
-    user: db.model('user', user),
-    commodity: db.model('commodity', commodity),
-    order: db.model('order', order),
-    commodity_type: db.model('commodity_type', commodity_type),
-    user_tag: db.model('user_tag', user_tag)
+    user: db.model('user', user, 'users'),
+    commodity: db.model('commodity', commodity, 'commoditys'),
+    order: db.model('order', order, 'orders'),
+    commodity_type: db.model('commodity_type', commodity_type, 'commodity_types'),
+    user_tag: db.model('user_tag', user_tag, 'user_tags')
 };
 
