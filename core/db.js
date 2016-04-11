@@ -19,7 +19,8 @@ var user = new Schema({
     name: String,
     sex: String,
     age: Number,
-    tag: String
+    tag: String,
+    from:String
 });
 
 var order = new Schema({

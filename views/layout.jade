@@ -1,7 +1,119 @@
 doctype html
-html
+html(lang='en')
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title RDV - Dashboard
+    link(rel='stylesheet', href='/stylesheets/fonts/linecons/css/linecons.css')
+    link(rel='stylesheet', href='/stylesheets/fonts/fontawesome/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+    link(rel='stylesheet', href='/stylesheets/xenon-core.css')
+    link(rel='stylesheet', href='/stylesheets/xenon-forms.css')
+    link(rel='stylesheet', href='/stylesheets/xenon-components.css')
+    link(rel='stylesheet', href='/stylesheets/xenon-skins.css')
+    link(rel='stylesheet', href='/stylesheets/custom.css')
+    script(src='/javascripts/jquery-1.11.1.min.js')
+
+  body.page-body
+    .page-container
+      .sidebar-menu.toggle-others.fixed
+        .sidebar-menu-inner
+          header.logo-env
+            .logo
+              a.logo-expanded(href='/')
+                img(src='/images/logo@2x.png', width='120', alt='')
+              a.logo-collapsed(href='/')
+                img(src='/images/logo-collapsed@2x.png', width='40', alt='')
+            .mobile-menu-toggle.visible-xs
+              a(href='#', data-toggle='user-info-menu')
+                i.fa-bell-o
+                span.badge.badge-success 7
+              a(href='#', data-toggle='mobile-menu')
+                i.fa-bars
+          ul#main-menu.main-menu
+            li.active.opened.active
+              a(href='/')
+                i.linecons-desktop
+                span.title Dashboard
+              ul
+                li.active
+                  a(href='/')
+                    span.title 整体监控
+                li
+                  a(href='/')
+                    span.title 流量漏斗
+                li
+                  a(href='/')
+                    span.title 用户分析
+            li
+              a(href='layout-variants.html')
+                i.linecons-cog
+                span.title Configuration
+              ul
+                li
+                  a(href='/')
+                    span.title 数据模拟配置
+      .main-content
+        nav.navbar.user-info-navbar(role='navigation')
+          ul.user-info-menu.left-links.list-inline.list-unstyled
+            li.hidden-sm.hidden-xs
+              a(href='#', data-toggle='sidebar')
+                i.fa-bars
+          ul.user-info-menu.right-links.list-inline.list-unstyled
+            li.dropdown.user-profile
+              a(href='#', data-toggle='dropdown')
+                img.img-circle.img-inline.userpic-32(src='/images/user-4.png', alt='user-image', width='28')
+                span
+                  | admin
+                  i.fa-angle-down
+              ul.dropdown-menu.user-profile-menu.list-unstyled
+                li
+                  a(href='#edit-profile')
+                    i.fa-edit
+                    | New Post
+                li
+                  a(href='#settings')
+                    i.fa-wrench
+                    | Settings
+                li
+                  a(href='#profile')
+                    i.fa-user
+                    | Profile
+                li
+                  a(href='#help')
+                    i.fa-info
+                    | Help
+                li.last
+                  a(href='extra-lockscreen.html')
+                    i.fa-lock
+                    | Logout
+
+        block content
+
+        footer.main-footer.sticky.footer-type-1
+          .footer-inner
+            .footer-text
+              | © 2016 by Wuyulin
+            .go-up
+              a(href='#', rel='go-top')
+                i.fa-angle-up
+
+    .page-loading-overlay
+      .loader-2
+
+    // Bottom Scripts
+    script(src='/javascripts/bootstrap.min.js')
+    script(src='/javascripts/TweenMax.min.js')
+    script(src='/javascripts/resizeable.js')
+    script(src='/javascripts/joinable.js')
+    script(src='/javascripts/xenon-api.js')
+    script(src='/javascripts/xenon-toggles.js')
+    // Imported scripts on this page
+    script(src='/javascripts/xenon-widgets.js')
+    script(src='/javascripts/devexpress-web-14.1/js/globalize.min.js')
+    script(src='/javascripts/devexpress-web-14.1/js/dx.chartjs.js')
+    script(src='/javascripts/toastr/toastr.min.js')
+    // JavaScripts initializations and stuff
+    script(src='/javascripts/xenon-custom.js')
+

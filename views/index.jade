@@ -1,5 +1,112 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    h2 = #{sales.total}
+
+    .row
+        .col-sm-12
+            .chart-item-bg-2
+                .chart-item-num(data-count='this', data-from='0', data-to='#{sales.total}', data-duration='2') -
+                .chart-item-desc
+                    p.col-lg-7
+                        | Carriage quitting securing be appetite it declared. High eyes kept so busy feel call in.
+                .chart-item-env
+                    #doughnut-1(style='width: 200px;')
+
+    .row
+        .col-sm-3
+            .xe-widget.xe-counter-block(data-count='.num', data-from='0', data-to='#{sales.total}', data-duration='2')
+                .xe-upper
+                    .xe-icon
+                        i.fa-rmb
+                    .xe-label
+                        strong.num -
+                        span 销售额
+                .xe-lower
+                    .border
+                    span APP
+                    strong(data-count='this', data-from='0', data-to='#{sales.app}', data-duration='2') -
+        .col-sm-3
+            .xe-widget.xe-counter-block.xe-counter-block-purple(data-count='.num', data-from='0', data-to='#{uv.total}', data-duration='2')
+                .xe-upper
+                    .xe-icon
+                        i.fa-globe
+                    .xe-label
+                        strong.num -
+                        span UV
+                .xe-lower
+                    .border
+                    span APP
+                    strong(data-count='this', data-from='0', data-to='#{uv.app}', data-duration='2') -
+        .col-sm-3
+            .xe-widget.xe-counter-block.xe-counter-block-blue(data-count='.num', data-from='0', data-to='#{rate.total}', data-suffix='%', data-duration='1')
+                .xe-upper
+                    .xe-icon
+                        i.fa-shopping-cart
+                    .xe-label
+                        strong.num -
+                        span 转化率
+                .xe-lower
+                    .border
+                    span APP
+                    strong(data-count='this', data-from='0', data-to='#{rate.app}', data-suffix='%', data-duration='1') -
+        .col-sm-3
+            .xe-widget.xe-counter-block.xe-counter-block-orange(data-count='.num', data-from='0', data-to='#{orderCount.total}', data-duration='2')
+                .xe-upper
+                    .xe-icon
+                        i.fa-line-chart
+                    .xe-label
+                        strong.num -
+                        span 订单数
+                .xe-lower
+                    .border
+                    span APP
+                    strong(data-count='this', data-from='0', data-to='#{orderCount.app}', data-duration='1') -
+        .col-sm-3
+            .xe-widget.xe-counter-block.xe-counter-block-pink(data-count='.num', data-from='0', data-to='#{price.total}', data-duration='1')
+                .xe-upper
+                    .xe-icon
+                        i.fa-paypal
+                    .xe-label
+                        strong.num -
+                        span 客单价
+                .xe-lower
+                    .border
+                    span APP
+                    strong(data-count='this', data-from='0', data-to='#{price.app}', data-duration='1') -
+        .col-sm-3
+            .xe-widget.xe-counter-block.xe-counter-block-turquoise(data-count='.num', data-from='0', data-to='#{userCount.total}', data-duration='2')
+                .xe-upper
+                    .xe-icon
+                        i.fa-users
+                    .xe-label
+                        strong.num -
+                        span 客户数
+                .xe-lower
+                    .border
+                    span APP
+                    strong(data-count='this', data-from='0', data-to='#{userCount.app}', data-duration='2') -
+        .col-sm-3
+            .xe-widget.xe-counter-block.xe-counter-block-red(data-count='.num', data-from='0', data-to='#{userCount.new}', data-duration='1')
+                .xe-upper
+                    .xe-icon
+                        i.fa-user
+                    .xe-label
+                        strong.num -
+                        span 新客户数
+                .xe-lower
+                    .border
+                    span APP
+                    strong(data-count='this', data-from='0', data-to='#{userCount.newApp}', data-duration='1') -
+        .col-sm-3
+            .xe-widget.xe-counter-block.xe-counter-block-yellow(data-count='.num', data-from='0', data-to='512', data-duration='1')
+                .xe-upper
+                    .xe-icon
+                        i.linecons-attach
+                    .xe-label
+                        strong.num 512
+                        span Photos Taken
+                .xe-lower
+                    .border
+                    span Increase
+                    strong 512 more photos
