@@ -1,0 +1,430 @@
+//Created by Silent on 2016/4/12.
+extends layout
+
+block content
+    .row
+        .col-sm-12
+            .panel.panel-default
+                .panel-heading
+                    h3.panel-title 各品类销售趋势
+                .panel-body
+                    #bar-1(style='height: 350px; width: 100%;')
+    .row
+        .col-md-12
+            .panel.panel-default
+                .panel-heading
+                    h3.panel-title 各品类数据分析
+                    .panel-options
+                        a(href='#', data-toggle='reload')
+                            i.fa-rotate-right
+                .panel-body
+                    .table-responsive(data-pattern='priority-columns', data-focus-btn-icon='fa-asterisk', data-sticky-table-header='true', data-add-display-all-btn='true', data-add-focus-btn='true')
+                        table.table.table-small-font.table-bordered.table-striped(cellspacing='0')
+                            thead
+                                tr
+                                    th Company
+                                    th(data-priority='1') Last Trade
+                                    th(data-priority='3') Trade Time
+                                    th(data-priority='1') Change
+                                    th(data-priority='3') Prev Close
+                                    th(data-priority='3') Open
+                                    th(data-priority='6') Bid
+                            tbody
+                                tr
+                                    th
+                                        | GOOG
+                                        span.co-name Google Inc.
+                                    td 597.74
+                                    td 12:12PM
+                                    td 14.81 (2.54%)
+                                    td 582.93
+                                    td 597.95
+                                    td 597.73 x 100
+                                tr
+                                    th
+                                        | AAPL
+                                        span.co-name Apple Inc.
+                                    td 378.94
+                                    td 12:22PM
+                                    td 5.74 (1.54%)
+                                    td 373.20
+                                    td 381.02
+                                    td 378.92 x 300
+                                tr
+                                    th
+                                        | AMZN
+                                        span.co-name Amazon.com Inc.
+                                    td 191.55
+                                    td 12:23PM
+                                    td 3.16 (1.68%)
+                                    td 188.39
+                                    td 194.99
+                                    td 191.52 x 300
+                                tr
+                                    th
+                                        | ORCL
+                                        span.co-name Oracle Corporation
+                                    td 31.15
+                                    td 12:44PM
+                                    td 1.41 (4.72%)
+                                    td 29.74
+                                    td 30.67
+                                    td 31.14 x 6500
+                                tr
+                                    th
+                                        | MSFT
+                                        span.co-name Microsoft Corporation
+                                    td 25.50
+                                    td 12:27PM
+                                    td 0.66 (2.67%)
+                                    td 24.84
+                                    td 25.37
+                                    td 25.50 x 71100
+                                tr
+                                    th
+                                        | CSCO
+                                        span.co-name Cisco Systems, Inc.
+                                    td 18.65
+                                    td 12:45PM
+                                    td 0.97 (5.49%)
+                                    td 17.68
+                                    td 18.23
+                                    td 18.65 x 10300
+                                tr
+                                    th
+                                        | YHOO
+                                        span.co-name Yahoo! Inc.
+                                    td 15.81
+                                    td 12:25PM
+                                    td 0.11 (0.67%)
+                                    td 15.70
+                                    td 15.94
+                                    td 15.79 x 6100
+                                // Repeat
+                                tr
+                                    th
+                                        | GOOG
+                                        span.co-name Google Inc.
+                                    td 597.74
+                                    td 12:12PM
+                                    td 14.81 (2.54%)
+                                    td 582.93
+                                    td 597.95
+                                    td 597.73 x 100
+                                tr
+                                    th
+                                        | AAPL
+                                        span.co-name Apple Inc.
+                                    td 378.94
+                                    td 12:22PM
+                                    td 5.74 (1.54%)
+                                    td 373.20
+                                    td 381.02
+                                    td 378.92 x 300
+                                tr
+                                    th
+                                        | AMZN
+                                        span.co-name Amazon.com Inc.
+                                    td 191.55
+                                    td 12:23PM
+                                    td 3.16 (1.68%)
+                                    td 188.39
+                                    td 194.99
+                                    td 191.52 x 300
+                                tr
+                                    th
+                                        | ORCL
+                                        span.co-name Oracle Corporation
+                                    td 31.15
+                                    td 12:44PM
+                                    td 1.41 (4.72%)
+                                    td 29.74
+                                    td 30.67
+                                    td 31.14 x 6500
+                                tr
+                                    th
+                                        | MSFT
+                                        span.co-name Microsoft Corporation
+                                    td 25.50
+                                    td 12:27PM
+                                    td 0.66 (2.67%)
+                                    td 24.84
+                                    td 25.37
+                                    td 25.50 x 71100
+                                tr
+                                    th
+                                        | CSCO
+                                        span.co-name Cisco Systems, Inc.
+                                    td 18.65
+                                    td 12:45PM
+                                    td 0.97 (5.49%)
+                                    td 17.68
+                                    td 18.23
+                                    td 18.65 x 10300
+                                tr
+                                    th
+                                        | YHOO
+                                        span.co-name Yahoo! Inc.
+                                    td 15.81
+                                    td 12:25PM
+                                    td 0.11 (0.67%)
+                                    td 15.70
+                                    td 15.94
+                                    td 15.79 x 6100
+                                // Repeat
+                                tr
+                                    th
+                                        | GOOG
+                                        span.co-name Google Inc.
+                                    td 597.74
+                                    td 12:12PM
+                                    td 14.81 (2.54%)
+                                    td 582.93
+                                    td 597.95
+                                    td 597.73 x 100
+                                tr
+                                    th
+                                        | AAPL
+                                        span.co-name Apple Inc.
+                                    td 378.94
+                                    td 12:22PM
+                                    td 5.74 (1.54%)
+                                    td 373.20
+                                    td 381.02
+                                    td 378.92 x 300
+                                tr
+                                    th
+                                        | AMZN
+                                        span.co-name Amazon.com Inc.
+                                    td 191.55
+                                    td 12:23PM
+                                    td 3.16 (1.68%)
+                                    td 188.39
+                                    td 194.99
+                                    td 191.52 x 300
+                                tr
+                                    th
+                                        | ORCL
+                                        span.co-name Oracle Corporation
+                                    td 31.15
+                                    td 12:44PM
+                                    td 1.41 (4.72%)
+                                    td 29.74
+                                    td 30.67
+                                    td 31.14 x 6500
+                                tr
+                                    th
+                                        | MSFT
+                                        span.co-name Microsoft Corporation
+                                    td 25.50
+                                    td 12:27PM
+                                    td 0.66 (2.67%)
+                                    td 24.84
+                                    td 25.37
+                                    td 25.50 x 71100
+                                tr
+                                    th
+                                        | CSCO
+                                        span.co-name Cisco Systems, Inc.
+                                    td 18.65
+                                    td 12:45PM
+                                    td 0.97 (5.49%)
+                                    td 17.68
+                                    td 18.23
+                                    td 18.65 x 10300
+                                tr
+                                    th
+                                        | YHOO
+                                        span.co-name Yahoo! Inc.
+                                    td 15.81
+                                    td 12:25PM
+                                    td 0.11 (0.67%)
+                                    td 15.70
+                                    td 15.94
+                                    td 15.79 x 6100
+                                // Repeat
+                                tr
+                                    th
+                                        | GOOG
+                                        span.co-name Google Inc.
+                                    td 597.74
+                                    td 12:12PM
+                                    td 14.81 (2.54%)
+                                    td 582.93
+                                    td 597.95
+                                    td 597.73 x 100
+                                tr
+                                    th
+                                        | AAPL
+                                        span.co-name Apple Inc.
+                                    td 378.94
+                                    td 12:22PM
+                                    td 5.74 (1.54%)
+                                    td 373.20
+                                    td 381.02
+                                    td 378.92 x 300
+                                tr
+                                    th
+                                        | AMZN
+                                        span.co-name Amazon.com Inc.
+                                    td 191.55
+                                    td 12:23PM
+                                    td 3.16 (1.68%)
+                                    td 188.39
+                                    td 194.99
+                                    td 191.52 x 300
+                                tr
+                                    th
+                                        | ORCL
+                                        span.co-name Oracle Corporation
+                                    td 31.15
+                                    td 12:44PM
+                                    td 1.41 (4.72%)
+                                    td 29.74
+                                    td 30.67
+                                    td 31.14 x 6500
+                                tr
+                                    th
+                                        | MSFT
+                                        span.co-name Microsoft Corporation
+                                    td 25.50
+                                    td 12:27PM
+                                    td 0.66 (2.67%)
+                                    td 24.84
+                                    td 25.37
+                                    td 25.50 x 71100
+                                tr
+                                    th
+                                        | CSCO
+                                        span.co-name Cisco Systems, Inc.
+                                    td 18.65
+                                    td 12:45PM
+                                    td 0.97 (5.49%)
+                                    td 17.68
+                                    td 18.23
+                                    td 18.65 x 10300
+                                tr
+                                    th
+                                        | YHOO
+                                        span.co-name Yahoo! Inc.
+                                    td 15.81
+                                    td 12:25PM
+                                    td 0.11 (0.67%)
+                                    td 15.70
+                                    td 15.94
+                                    td 15.79 x 6100
+                                // Repeat
+                                tr
+                                    th
+                                        | GOOG
+                                        span.co-name Google Inc.
+                                    td 597.74
+                                    td 12:12PM
+                                    td 14.81 (2.54%)
+                                    td 582.93
+                                    td 597.95
+                                    td 597.73 x 100
+                                tr
+                                    th
+                                        | AAPL
+                                        span.co-name Apple Inc.
+                                    td 378.94
+                                    td 12:22PM
+                                    td 5.74 (1.54%)
+                                    td 373.20
+                                    td 381.02
+                                    td 378.92 x 300
+                                tr
+                                    th
+                                        | AMZN
+                                        span.co-name Amazon.com Inc.
+                                    td 191.55
+                                    td 12:23PM
+                                    td 3.16 (1.68%)
+                                    td 188.39
+                                    td 194.99
+                                    td 191.52 x 300
+                                tr
+                                    th
+                                        | ORCL
+                                        span.co-name Oracle Corporation
+                                    td 31.15
+                                    td 12:44PM
+                                    td 1.41 (4.72%)
+                                    td 29.74
+                                    td 30.67
+                                    td 31.14 x 6500
+                                tr
+                                    th
+                                        | MSFT
+                                        span.co-name Microsoft Corporation
+                                    td 25.50
+                                    td 12:27PM
+                                    td 0.66 (2.67%)
+                                    td 24.84
+                                    td 25.37
+                                    td 25.50 x 71100
+                                tr
+                                    th
+                                        | CSCO
+                                        span.co-name Cisco Systems, Inc.
+                                    td 18.65
+                                    td 12:45PM
+                                    td 0.97 (5.49%)
+                                    td 17.68
+                                    td 18.23
+                                    td 18.65 x 10300
+                                tr
+                                    th
+                                        | YHOO
+                                        span.co-name Yahoo! Inc.
+                                    td 15.81
+                                    td 12:25PM
+                                    td 0.11 (0.67%)
+                                    td 15.70
+                                    td 15.94
+                                    td 15.79 x 6100
+                    script(type='text/javascript').
+                        // This JavaScript Will Replace Checkboxes in dropdown toggles
+                        jQuery(document).ready(function ($) {
+                            setTimeout(function () {
+                                $(".checkbox-row input").addClass('cbr');
+                                cbr_replace();
+                            }, 0);
+                        });
+
+    script.
+        jQuery(document).ready(function ($) {
+            $("#bar-1").dxChart({
+                dataSource: [
+                    {day: "女装", sales: between(10000000, 25000000)},
+                    {day: "男装", sales: between(10000000, 25000000)},
+                    {day: "体用", sales: between(10000000, 25000000)},
+                    {day: "居家", sales: between(10000000, 25000000)},
+                    {day: "美妆", sales: between(10000000, 25000000)},
+                    {day: "海淘", sales: between(10000000, 25000000)},
+                    {day: "食品", sales: between(10000000, 25000000)},
+                    {day: "母婴", sales: between(10000000, 25000000)},
+                    {day: "数码", sales: between(10000000, 25000000)},
+                    {day: "珠宝", sales: between(10000000, 25000000)},
+                    {day: "图书", sales: between(10000000, 25000000)},
+                    {day: "汽车", sales: between(10000000, 25000000)}
+                ],
+                series: {
+                    argumentField: "day",
+                    valueField: "sales",
+                    name: "销售额",
+                    type: "bar",
+                    color: '#ff6264'
+                }
+            });
+
+            // Resize charts
+            $(window).on('xenon.resize', function () {
+                $("#bar-1").data("dxChart").render();
+            });
+        });
+        function between(randNumMin, randNumMax) {
+            var randInt = Math.floor((Math.random() * ((randNumMax + 1) - randNumMin)) + randNumMin);
+            return randInt;
+        }

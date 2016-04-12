@@ -64,9 +64,16 @@ router.get('/', function (req, res, next) {
 
 });
 
-router.get('/order', function (req, res, next) {
-
+router.get('/uv', function (req, res, next) {
+    res.send("uv data")
 });
 
+router.get('/category', function (req, res, next) {
+    res.render('category', {});
+});
+
+router.get('/customer', function (req, res, next) {
+    res.render('customer', {});
+});
 
 module.exports = router;
