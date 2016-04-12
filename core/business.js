@@ -58,8 +58,8 @@ var business = {
             };
 
         return {
-            total: count.total / (uv.total | 1),
-            app: count.app / (uv.app | 1)
+            total: count.total / (uv.total || 1),
+            app: count.app / (uv.app || 1)
         };
     },
 
@@ -93,8 +93,8 @@ var business = {
             };
 
         return {
-            total: sales.total / (count.total | 1),
-            app: sales.app / (count.app | 1)
+            total: sales.total / (count.total || 1),
+            app: sales.app / (count.app || 1)
         };
     },
 

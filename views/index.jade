@@ -1,19 +1,6 @@
 extends layout
 
 block content
-    .panel.panel-default
-        .panel-heading
-            | 总销售额
-        .panel-body
-            .row
-                .col-sm-12
-                    .chart-item-bg-2
-                        .chart-item-num(data-count='this', data-from='0', data-to='#{sales.total}', data-duration='2') -
-                        .chart-item-desc
-                            p.col-lg-7
-                                | Carriage quitting securing be appetite it declared. High eyes kept so busy feel call in.
-                        .chart-item-env
-                            #doughnut-1(style='width: 200px;')
 
     .row
         .col-sm-3
@@ -115,67 +102,29 @@ block content
 
     .panel.panel-default
         .panel-heading
-            | 实时订单数据
+            | 实时访问量数据
         .panel-body
             .row
                 .col-sm-12
                     #range-chart
+    .row
+        .col-sm-6
+            .panel.panel-default
+                .panel-heading
+                    h3.panel-title 近七日销售趋势
+                .panel-body
+                    #bar-1(style='height: 350px; width: 100%;')
+
+        .col-sm-6
+            .panel.panel-default
+                .panel-heading
+                    h3.panel-title 分站销售占比
+                .panel-body
+                    #bar-10(style='height: 350px; width: 100%;')
 
     script.
         jQuery(document).ready(function ($) {
             // Combine charts for filtering, grouped by time
-            var reqs_per_second_data = [
-                {time: new Date("October 02, 2014 01:00:00"), reqs: 89},
-                {time: new Date("October 02, 2014 02:00:00"), reqs: 79},
-                {time: new Date("October 02, 2014 03:00:00"), reqs: 115},
-                {time: new Date("October 02, 2014 04:00:00"), reqs: 186},
-                {time: new Date("October 02, 2014 05:00:00"), reqs: 110},
-                {time: new Date("October 02, 2014 06:00:00"), reqs: 196},
-                {time: new Date("October 02, 2014 07:00:00"), reqs: 128},
-                {time: new Date("October 02, 2014 08:00:00"), reqs: 51},
-                {time: new Date("October 02, 2014 09:00:00"), reqs: 70},
-                {time: new Date("October 02, 2014 10:00:00"), reqs: 54},
-                {time: new Date("October 02, 2014 11:00:00"), reqs: 2},
-                {time: new Date("October 02, 2014 12:00:00"), reqs: 184},
-                {time: new Date("October 02, 2014 13:00:00"), reqs: 48},
-                {time: new Date("October 02, 2014 14:00:00"), reqs: 75},
-                {time: new Date("October 02, 2014 15:00:00"), reqs: 200},
-                {time: new Date("October 02, 2014 16:00:00"), reqs: 9},
-                {time: new Date("October 02, 2014 17:00:00"), reqs: 37},
-                {time: new Date("October 02, 2014 18:00:00"), reqs: 152},
-                {time: new Date("October 02, 2014 19:00:00"), reqs: 78},
-                {time: new Date("October 02, 2014 20:00:00"), reqs: 154},
-                {time: new Date("October 02, 2014 21:00:00"), reqs: 184},
-                {time: new Date("October 02, 2014 22:00:00"), reqs: 167},
-                {time: new Date("October 02, 2014 23:00:00"), reqs: 12},
-                {time: new Date("October 03, 2014 00:00:00"), reqs: 88},
-            ];
-            var cpu_usage_data = [
-                {time: new Date("October 02, 2014 01:00:00"), usage: 75},
-                {time: new Date("October 02, 2014 02:00:00"), usage: 55},
-                {time: new Date("October 02, 2014 03:00:00"), usage: 49},
-                {time: new Date("October 02, 2014 04:00:00"), usage: 87},
-                {time: new Date("October 02, 2014 05:00:00"), usage: 8},
-                {time: new Date("October 02, 2014 06:00:00"), usage: 20},
-                {time: new Date("October 02, 2014 07:00:00"), usage: 39},
-                {time: new Date("October 02, 2014 08:00:00"), usage: 26},
-                {time: new Date("October 02, 2014 09:00:00"), usage: 87},
-                {time: new Date("October 02, 2014 10:00:00"), usage: 69},
-                {time: new Date("October 02, 2014 11:00:00"), usage: 40},
-                {time: new Date("October 02, 2014 12:00:00"), usage: 57},
-                {time: new Date("October 02, 2014 13:00:00"), usage: 48},
-                {time: new Date("October 02, 2014 14:00:00"), usage: 73},
-                {time: new Date("October 02, 2014 15:00:00"), usage: 28},
-                {time: new Date("October 02, 2014 16:00:00"), usage: 5},
-                {time: new Date("October 02, 2014 17:00:00"), usage: 73},
-                {time: new Date("October 02, 2014 18:00:00"), usage: 27},
-                {time: new Date("October 02, 2014 19:00:00"), usage: 63},
-                {time: new Date("October 02, 2014 20:00:00"), usage: 5},
-                {time: new Date("October 02, 2014 21:00:00"), usage: 100},
-                {time: new Date("October 02, 2014 22:00:00"), usage: 61},
-                {time: new Date("October 02, 2014 23:00:00"), usage: 39},
-                {time: new Date("October 03, 2014 00:00:00"), usage: 59},
-            ];
             var memory_usage_data = [
                 {time: new Date("October 02, 2014 01:00:00"), used: 559},
                 {time: new Date("October 02, 2014 02:00:00"), used: 692},
@@ -202,31 +151,85 @@ block content
                 {time: new Date("October 02, 2014 23:00:00"), used: 555},
                 {time: new Date("October 03, 2014 00:00:00"), used: 144},
             ];
-            var all_data_sources = [];
-            $.map(reqs_per_second_data, function (arg, i) {
-                all_data_sources.push({
-                    time: arg.time,
-                    requestsPerMinute: reqs_per_second_data[i].reqs,
-                    cpuUsage: cpu_usage_data[i].usage,
-                    memoryUsed: memory_usage_data[i].used
-                });
-            });
             // Range Filter
             $("#range-chart").dxRangeSelector({
-                dataSource: all_data_sources,
+                dataSource: memory_usage_data,
                 size: {
                     height: 240
                 },
                 chart: {
                     series: [
-                        {argumentField: "time", valueField: "requestsPerMinute", color: '#68b828', opacity: .65},
-                        {argumentField: "time", valueField: "cpuUsage", color: '#7c38bc', opacity: .65},
-                        {argumentField: "time", valueField: "memoryUsed", color: '#40bbea', opacity: .65}
+                        {argumentField: "time", valueField: "used", color: '#40bbea', opacity: .65}
                     ]
                 }
             });
+            $("#bar-1").dxChart({
+                dataSource: [
+                    {day: "4-12", sales: between(10000000, 25000000)},
+                    {day: "4-13", sales: between(10000000, 25000000)},
+                    {day: "4-14", sales: between(10000000, 25000000)},
+                    {day: "4-15", sales: between(10000000, 25000000)},
+                    {day: "4-16", sales: between(10000000, 25000000)},
+                    {day: "4-17", sales: between(10000000, 25000000)},
+                    {day: "4-18", sales: between(10000000, 25000000)}
+                ],
+                series: {
+                    argumentField: "day",
+                    valueField: "sales",
+                    name: "销售额",
+                    type: "bar",
+                    color: '#00b19d'
+                }
+            });
+
+            var xenonPalette = ['#0e62c7', '#fcd036', '#4fcdfc', '#00b19d', '#ff6264', '#f7aa47', '#68b828', '#7c38bc'];
+            var dataSource = [
+                {region: "上海", val: between(10000000, 25000000)},
+                {region: "北京", val: between(10000000, 25000000)},
+                {region: "深圳", val: between(10000000, 25000000)},
+                {region: "广州", val: between(10000000, 25000000)},
+                {region: "杭州", val: between(10000000, 25000000)},
+                {region: "南京", val: between(10000000, 25000000)}
+            ], timer;
+            $("#bar-10").dxPieChart({
+                dataSource: dataSource,
+                tooltip: {
+                    enabled: true,
+                    format: "millions",
+                    customizeText: function () {
+                        return this.argumentText + "<br/>" + this.valueText;
+                    }
+                },
+                size: {
+                    height: 300
+                },
+                pointClick: function (point) {
+                    point.showTooltip();
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
+                        point.hideTooltip();
+                    }, 2000);
+                    $("select option:contains(" + point.argument + ")").prop("selected", true);
+                },
+                legend: {
+                    visible: false
+                },
+                series: [{
+                    type: "doughnut",
+                    argumentField: "region"
+                }],
+                palette: xenonPalette
+            });
+
             // Resize charts
             $(window).on('xenon.resize', function () {
                 $("#range-chart").data("dxRangeSelector").render();
+                $("#bar-1").data("dxChart").render();
+                $("#bar-10").data("dxPieChart").render();
             });
         });
+        function between(randNumMin, randNumMax) {
+            var randInt = Math.floor((Math.random() * ((randNumMax + 1) - randNumMin)) + randNumMin);
+            return randInt;
+        }
+
