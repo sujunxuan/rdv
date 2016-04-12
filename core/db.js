@@ -11,7 +11,8 @@ var commodity = new Schema({
     name: String,
     price: Number,
     type: String,
-    uv: Number
+    uv: Number,
+    app_uv: Number
 });
 
 var user = new Schema({
@@ -20,7 +21,7 @@ var user = new Schema({
     sex: String,
     age: Number,
     tag: String,
-    from:String
+    from: String
 });
 
 var order = new Schema({

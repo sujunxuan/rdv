@@ -1,5 +1,6 @@
 var express = require('express');
 var Redis = require('ioredis');
+//var co = require('co');
 var db = require(__base + 'core/db');
 var business = require(__base + 'core/business');
 
@@ -8,56 +9,62 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {
-        sales: {
-            total: 231517956,
-            app: 231517956
-        },
-        uv: {
-            total: 781517865,
-            app: 5315178656
-        },
-        rate: {
-            total: 4.83,
-            app: 5.21
-        },
-        orderCount: {
-            total: 14215,
-            app: 11215
-        },
-        price: {
-            total: 261,
-            app: 271
-        },
-        userCount: {
-            total: 4832261,
-            app: 3832261,
-            new: 58357,
-            newApp: 38357
-        }
+    var orderKey = 'rdv:orders',
+        userKey = 'rdv:users',
+        commodityKey = 'rdv:commodity';
+    var model = {};
+
+    redis.get(orderKey).then(function (orders) {
+        if (orders)
+            return orders;
+        return db.order.find().exec().then(function (orders) {
+            //设置缓存
+            if (orders) {
+                redis.set(orderKey, orders);
+                redis.expire(orderKey, 600);
+            }
+            return orders;
+        });
+    }).then(function (orders) {
+        model.sales = business.getSales(orders);
+        model.orderCount = business.getOrderCount(orders);
+        model.price = business.getPrice(model.sales, model.orderCount);
+
+        return redis.get(userKey);
+    }).then(function (users) {
+        if (users)
+            return users;
+        return db.user.find().exec().then(function (users) {
+            if (users) {
+                redis.set(userKey, users);
+                redis.expire(userKey, 600);
+            }
+            return users;
+        });
+    }).then(function (users) {
+        model.userCount = business.getUser(users);
+
+        return redis.get(commodityKey);
+    }).then(function (commodity) {
+        if (commodity)
+            return commodity;
+        return db.commodity.find().exec().then(function (commodity) {
+            if (commodity) {
+                redis.set(commodityKey, commodity);
+                redis.expire(commodityKey, 600);
+            }
+            return commodity;
+        });
+    }).then(function (commodity) {
+        model.uv = business.getUV(commodity);
+        model.rate = business.getRate(model.uv, model.orderCount);
+
+        res.render('index', model);
     });
+
 });
 
 router.get('/order', function (req, res, next) {
-    var key = 'rdv:orders';
-
-    redis.get(key, function (err, result) {
-        if (err || !result) {
-            db.order.find(function (err, orders) {
-                if (err)
-                    res.send(500);
-
-                //set cache
-                redis.set(key, orders);
-                redis.expire(key, 600);
-
-                res.send(orders);
-            })
-        }
-        else {
-            res.send(result);
-        }
-    });
 
 });
 
