@@ -1,4 +1,5 @@
 var moment = require('moment');
+var Enumerable = require('linq');
 
 var business = {
 
@@ -142,17 +143,37 @@ var business = {
     },
 
     //获取最近七天销售额
-    get7daySales: function () {
-        // Todo 获取最近七天销售额
-        return [
-            {day: "4-12", sales: between(10000000, 25000000)},
-            {day: "4-13", sales: between(10000000, 25000000)},
-            {day: "4-14", sales: between(10000000, 25000000)},
-            {day: "4-15", sales: between(10000000, 25000000)},
-            {day: "4-16", sales: between(10000000, 25000000)},
-            {day: "4-17", sales: between(10000000, 25000000)},
-            {day: "4-18", sales: between(10000000, 25000000)}
-        ]
+    get7daySales: function (orders) {
+        if (!orders || !orders.length)
+            return [];
+
+        var data =  Enumerable.from(orders)
+            .where(function (o) {
+                return o.createTime.getDate() + 7 > new date().getDate()
+            })
+            .groupBy(function (o) {
+                return o.createTime.getDate();
+            })
+            .select(function (g) {
+                return {
+                    day: g.key,
+                    sales: g.sum(function (o) {
+                        return o.total;
+                    })
+                }
+            }).toArray();
+
+        return data;
+
+        //return [
+        //    {day: "4-12", sales: between(10000000, 25000000)},
+        //    {day: "4-13", sales: between(10000000, 25000000)},
+        //    {day: "4-14", sales: between(10000000, 25000000)},
+        //    {day: "4-15", sales: between(10000000, 25000000)},
+        //    {day: "4-16", sales: between(10000000, 25000000)},
+        //    {day: "4-17", sales: between(10000000, 25000000)},
+        //    {day: "4-18", sales: between(10000000, 25000000)}
+        //]
     },
 
     //获取各个城市销售额

@@ -25,15 +25,15 @@ router.get('/', function (req, res, next) {
         return db.order.find().exec().then(function (orders) {
             //设置缓存
             if (orders) {
-                //redis.sadd(orderKey, orders);
-                //redis.expire(orderKey, 600);
+                redis.sadd(orderKey, orders);
+                redis.expire(orderKey, 600);
             }
             return orders;
         });
     }).then(function (orders) {
         model.sales = business.getSales(orders);
-        model.sevenDaySales = business.get7daySales();
-        model.citySales = business.getCitySales();
+        model.sevenDaySales = business.get7daySales(orders);
+        model.citySales = business.getCitySales(orders);
         model.orderCount = business.getOrderCount(orders);
         model.price = business.getPrice(model.sales, model.orderCount);
 
@@ -43,8 +43,8 @@ router.get('/', function (req, res, next) {
             return users;
         return db.user.find().exec().then(function (users) {
             if (users) {
-                //redis.sadd(userKey, users);
-                //redis.expire(userKey, 600);
+                redis.sadd(userKey, users);
+                redis.expire(userKey, 600);
             }
             return users;
         });
@@ -57,8 +57,8 @@ router.get('/', function (req, res, next) {
             return commodity;
         return db.commodity.find().exec().then(function (commodity) {
             if (commodity) {
-                //redis.sadd(commodityKey, commodity);
-                //redis.expire(commodityKey, 600);
+                redis.sadd(commodityKey, commodity);
+                redis.expire(commodityKey, 600);
             }
             return commodity;
         });
@@ -94,7 +94,7 @@ router.get('/customer', function (req, res, next) {
 });
 
 router.get('/test', function (req, res, next) {
-    res.send(moment().format(req.query['f']||'mm'))
+    res.send(moment(new Date()).format(req.query['f']||'mm'));
 });
 
 module.exports = router;
