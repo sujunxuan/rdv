@@ -124,55 +124,64 @@ block content
 
     script.
         jQuery(document).ready(function ($) {
-            // Combine charts for filtering, grouped by time
-            var memory_usage_data = [
-                {time: new Date("October 02, 2014 01:00:00"), used: 559},
-                {time: new Date("October 02, 2014 02:00:00"), used: 692},
-                {time: new Date("October 02, 2014 03:00:00"), used: 534},
-                {time: new Date("October 02, 2014 04:00:00"), used: 607},
-                {time: new Date("October 02, 2014 05:00:00"), used: 50},
-                {time: new Date("October 02, 2014 06:00:00"), used: 772},
-                {time: new Date("October 02, 2014 07:00:00"), used: 30},
-                {time: new Date("October 02, 2014 08:00:00"), used: 108},
-                {time: new Date("October 02, 2014 09:00:00"), used: 440},
-                {time: new Date("October 02, 2014 10:00:00"), used: 371},
-                {time: new Date("October 02, 2014 11:00:00"), used: 209},
-                {time: new Date("October 02, 2014 12:00:00"), used: 378},
-                {time: new Date("October 02, 2014 13:00:00"), used: 308},
-                {time: new Date("October 02, 2014 14:00:00"), used: 585},
-                {time: new Date("October 02, 2014 15:00:00"), used: 96},
-                {time: new Date("October 02, 2014 16:00:00"), used: 473},
-                {time: new Date("October 02, 2014 17:00:00"), used: 864},
-                {time: new Date("October 02, 2014 18:00:00"), used: 895},
-                {time: new Date("October 02, 2014 19:00:00"), used: 610},
-                {time: new Date("October 02, 2014 20:00:00"), used: 893},
-                {time: new Date("October 02, 2014 21:00:00"), used: 753},
-                {time: new Date("October 02, 2014 22:00:00"), used: 209},
-                {time: new Date("October 02, 2014 23:00:00"), used: 555},
-                {time: new Date("October 03, 2014 00:00:00"), used: 144}
-            ];
-            // Range Filter
-            $("#range-chart").dxRangeSelector({
-                dataSource: memory_usage_data,
-                size: {
-                    height: 240
+            var uv_data = [];
+
+
+            $("#range-chart").dxChart({
+                dataSource: uv_data,
+                commonPaneSettings: {
+                    border: {
+                        visible: true,
+                        color: '#f5f5f5'
+                    }
                 },
-                chart: {
-                    series: [
-                        {argumentField: "time", valueField: "used", color: '#40bbea', opacity: .65}
-                    ]
+                commonSeriesSettings: {
+                    type: "area",
+                    argumentField: "time",
+                    border: {
+                        color: '#40bbea',
+                        width: 1,
+                        visible: false
+                    }
+                },
+                series: [
+                    {valueField: "uv", name: "uv", color: '#40bbea', opacity: .5},
+                ],
+                commonAxisSettings: {
+                    label: {
+                        visible: true
+                    },
+                    grid: {
+                        visible: true,
+                        color: '#f5f5f5'
+                    }
+                },
+                argumentAxis: {
+                    valueMarginsEnabled: false,
+                    label: {
+                        visible: true
+                    }
+                },
+                legend: {
+                    visible: false
+                },
+                animation: {
+                    enabled: false
                 }
             });
+
+            var socket = io.connect('http://127.0.0.1:3000');
+            socket.on('uv', function (data) {
+                if(uv_data.length>30)
+                    uv_data.shift();
+
+                uv_data.push(data);
+
+                $('#range-chart').dxChart('instance').option('dataSource', uv_data);
+            });
+
             $("#bar-1").dxChart({
-                dataSource: [
-                    {day: "4-12", sales: between(10000000, 25000000)},
-                    {day: "4-13", sales: between(10000000, 25000000)},
-                    {day: "4-14", sales: between(10000000, 25000000)},
-                    {day: "4-15", sales: between(10000000, 25000000)},
-                    {day: "4-16", sales: between(10000000, 25000000)},
-                    {day: "4-17", sales: between(10000000, 25000000)},
-                    {day: "4-18", sales: between(10000000, 25000000)}
-                ],
+                dataSource: !{JSON.stringify(sevenDaySales)},
                 series: {
                     argumentField: "day",
                     valueField: "sales",
@@ -183,14 +192,7 @@ block content
             });
 
             var xenonPalette = ['#0e62c7', '#fcd036', '#4fcdfc', '#00b19d', '#ff6264', '#f7aa47', '#68b828', '#7c38bc'];
-            var dataSource = [
-                {region: "上海", val: between(10000000, 25000000)},
-                {region: "北京", val: between(10000000, 25000000)},
-                {region: "深圳", val: between(10000000, 25000000)},
-                {region: "广州", val: between(10000000, 25000000)},
-                {region: "杭州", val: between(10000000, 25000000)},
-                {region: "南京", val: between(10000000, 25000000)}
-            ], timer;
+            var dataSource = !{JSON.stringify(citySales)}, timer;
             $("#bar-10").dxPieChart({
                 dataSource: dataSource,
                 tooltip: {
@@ -216,14 +218,14 @@ block content
                 },
                 series: [{
                     type: "doughnut",
-                    argumentField: "region"
+                    argumentField: "city"
                 }],
                 palette: xenonPalette
             });
 
             // Resize charts
             $(window).on('xenon.resize', function () {
-                $("#range-chart").data("dxRangeSelector").render();
+                $("#range-chart").data("dxChart").render();
                 $("#bar-1").data("dxChart").render();
                 $("#bar-10").data("dxPieChart").render();
             });

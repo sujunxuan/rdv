@@ -1,6 +1,5 @@
-/**
- * Created by sujunxuan on 2016/4/11.
- */
+var moment = require('moment');
+
 var business = {
 
     //获取销售额
@@ -136,16 +135,36 @@ var business = {
     //获取实时UV
     getRealTimeUV: function () {
 
+        return {
+            time: moment().format('mm:ss'),
+            uv: between(20000, 40000)
+        }
     },
 
     //获取最近七天销售额
     get7daySales: function () {
-
+        // Todo 获取最近七天销售额
+        return [
+            {day: "4-12", sales: between(10000000, 25000000)},
+            {day: "4-13", sales: between(10000000, 25000000)},
+            {day: "4-14", sales: between(10000000, 25000000)},
+            {day: "4-15", sales: between(10000000, 25000000)},
+            {day: "4-16", sales: between(10000000, 25000000)},
+            {day: "4-17", sales: between(10000000, 25000000)},
+            {day: "4-18", sales: between(10000000, 25000000)}
+        ]
     },
 
     //获取各个城市销售额
-    getCitySalse: function () {
-
+    getCitySales: function () {
+        return [
+            {city: "上海", val: between(10000000, 25000000)},
+            {city: "北京", val: between(10000000, 25000000)},
+            {city: "深圳", val: between(10000000, 25000000)},
+            {city: "广州", val: between(10000000, 25000000)},
+            {city: "杭州", val: between(10000000, 25000000)},
+            {city: "南京", val: between(10000000, 25000000)}
+        ]
     },
 
     //获取品类分析数据
@@ -158,5 +177,10 @@ var business = {
 
     }
 };
+
+function between(randNumMin, randNumMax) {
+    var randInt = Math.floor((Math.random() * ((randNumMax + 1) - randNumMin)) + randNumMin);
+    return randInt;
+}
 
 module.exports = business;

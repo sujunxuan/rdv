@@ -1,6 +1,3 @@
-/**
- * Created by Silent on 2016/4/9.
- */
 var mongoose = require('mongoose');
 
 var db = mongoose.connect('mongodb://192.168.99.100:32768/rdv');
