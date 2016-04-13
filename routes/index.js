@@ -9,6 +9,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+    if(!global.isLogin)
+        res.redirect('/users/login')
+
     var orderKey = 'rdv:orders',
         userKey = 'rdv:users',
         commodityKey = 'rdv:commodity';
@@ -65,14 +68,23 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/uv', function (req, res, next) {
+    if(!global.isLogin)
+        res.redirect('/users/login')
+
     res.send("uv data")
 });
 
 router.get('/category', function (req, res, next) {
+    if(!global.isLogin)
+        res.redirect('/users/login')
+
     res.render('category', {});
 });
 
 router.get('/customer', function (req, res, next) {
+    if(!global.isLogin)
+        res.redirect('/users/login')
+
     res.render('customer', {});
 });
 

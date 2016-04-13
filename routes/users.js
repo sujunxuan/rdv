@@ -7,7 +7,11 @@ router.get('/login', function (req, res, next) {
 });
 
 router.post('/login', function (req, res, next) {
-    res.send({accessGranted: req.body.username === 'admin' && req.body.passwd === '123456'});
+    if (req.body.username === 'admin' && req.body.passwd === '123456') {
+        global.isLogin = true;
+        res.send({accessGranted: true});
+    }
+    res.send({accessGranted: false});
 });
 
 module.exports = router;
