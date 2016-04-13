@@ -34,7 +34,15 @@ var order = new Schema({
     from: String,
     city: String,
     ctype: String,
-    createTime: String
+    createTime: Date
+});
+
+var uv = new Schema({
+    uid: String,
+    cid: String,
+    from: String,
+    count: Number,
+    createTime: Date
 });
 
 var commodity_type = new Schema({
@@ -51,6 +59,7 @@ module.exports = {
     user: db.model('user', user, 'users'),
     commodity: db.model('commodity', commodity, 'commoditys'),
     order: db.model('order', order, 'orders'),
+    uv: db.model('uv', uv, 'uv'),
     commodity_type: db.model('commodity_type', commodity_type, 'commodity_types'),
     user_tag: db.model('user_tag', user_tag, 'user_tags')
 };

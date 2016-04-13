@@ -131,6 +131,11 @@ var business = {
             new: newCount,
             newApp: appNewCount
         };
+    },
+
+    //获取用户分析数据
+    getCustomerData: function () {
+        
     }
 };
 

@@ -1,0 +1,124 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        title RDV - Dashboard
+        link(rel='stylesheet', href='/stylesheets/fonts/linecons/css/linecons.css')
+        link(rel='stylesheet', href='/stylesheets/fonts/fontawesome/css/font-awesome.min.css')
+        link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+        link(rel='stylesheet', href='/stylesheets/xenon-core.css')
+        link(rel='stylesheet', href='/stylesheets/xenon-forms.css')
+        link(rel='stylesheet', href='/stylesheets/xenon-components.css')
+        link(rel='stylesheet', href='/stylesheets/xenon-skins.css')
+        link(rel='stylesheet', href='/stylesheets/custom.css')
+        script(src='/javascripts/jquery-1.11.1.min.js')
+
+    body.page-body.login-page
+        .login-container
+            .row
+                .col-sm-6
+                    script(type='text/javascript').
+                        jQuery(document).ready(function ($) {
+                            // Reveal Login form
+                            setTimeout(function () {
+                                $(".fade-in-effect").addClass('in');
+                            }, 1);
+                            // Validation and Ajax action
+                            $("form#login").validate({
+                                rules: {
+                                    username: {
+                                        required: true
+                                    },
+                                    passwd: {
+                                        required: true
+                                    }
+                                },
+                                messages: {
+                                    username: {
+                                        required: '请输入用户名.'
+                                    },
+                                    passwd: {
+                                        required: '请输入密码.'
+                                    }
+                                },
+                                // Form Processing via AJAX
+                                submitHandler: function (form) {
+                                    show_loading_bar(70); // Fill progress bar to 70% (just a given value)
+                                    var opts = {
+                                        "closeButton": true,
+                                        "debug": false,
+                                        "positionClass": "toast-top-full-width",
+                                        "onclick": null,
+                                        "showDuration": "300",
+                                        "hideDuration": "1000",
+                                        "timeOut": "5000",
+                                        "extendedTimeOut": "1000",
+                                        "showEasing": "swing",
+                                        "hideEasing": "linear",
+                                        "showMethod": "fadeIn",
+                                        "hideMethod": "fadeOut"
+                                    };
+                                    $.ajax({
+                                        url: "/users/login",
+                                        method: 'POST',
+                                        dataType: 'json',
+                                        data: {
+                                            do_login: true,
+                                            username: $(form).find('#username').val(),
+                                            passwd: $(form).find('#passwd').val(),
+                                        },
+                                        success: function (resp) {
+                                            show_loading_bar({
+                                                delay: .5,
+                                                pct: 100,
+                                                finish: function () {
+                                                    // Redirect after successful login page (when progress bar reaches 100%)
+                                                    if (resp.accessGranted) {
+                                                        window.location.href = '/';
+                                                    }
+                                                    else {
+                                                        toastr.error("输入的账号密码错误,请重试. 或使用 <strong>admin/123456</strong> :)", "登陆错误!", opts);
+                                                        $('#username').select();
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                            // Set Form focus
+                            $("form#login .form-group:has(.form-control):first .form-control").focus();
+                        });
+                    // Errors container
+                    .errors-container
+                    // Add class "fade-in-effect" for login form effect
+                    form#login.login-form.fade-in-effect(method='post', role='form')
+                        .login-header
+                            a.logo(href='#')
+                                img(src='/images/logo@2x.png', alt='', width='100')
+                                span log in
+                            p 登录后进入实时数据展示系统.
+                        .form-group
+                            label.control-label(for='username') Username
+                            input#username.form-control.input-dark(type='text', name='username', autocomplete='off')
+                        .form-group
+                            label.control-label(for='passwd') Password
+                            input#passwd.form-control.input-dark(type='password', name='passwd', autocomplete='off')
+                        .form-group
+                            button.btn.btn-dark.btn-block.text-left(type='submit')
+                                i.fa-lock
+                                | Log In
+
+        // Bottom Scripts
+        script(src='/javascripts/bootstrap.min.js')
+        script(src='/javascripts/TweenMax.min.js')
+        script(src='/javascripts/resizeable.js')
+        script(src='/javascripts/joinable.js')
+        script(src='/javascripts/xenon-api.js')
+        script(src='/javascripts/xenon-toggles.js')
+        script(src='/javascripts/jquery-validate/jquery.validate.min.js')
+        script(src='/javascripts/toastr/toastr.min.js')
+        // JavaScripts initializations and stuff
+        script(src='/javascripts/xenon-custom.js')
