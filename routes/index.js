@@ -11,16 +11,18 @@ var redis = new Redis(32769, '192.168.99.100');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    if (!global.isLogin)
+    if (!global.isLogin) {
         res.redirect('/users/login');
+        return;
+    }
 
     var orderKey = 'rdv:orders',
         userKey = 'rdv:users',
         commodityKey = 'rdv:commodity';
     var model = {};
 
-    redis.get(orderKey).then(function (orders) {
-        if (orders)
+    redis.smembers(orderKey).then(function (orders) {
+        if (orders && orders.length)
             return orders;
         return db.order.find().exec().then(function (orders) {
             //设置缓存
@@ -37,9 +39,9 @@ router.get('/', function (req, res, next) {
         model.orderCount = business.getOrderCount(orders);
         model.price = business.getPrice(model.sales, model.orderCount);
 
-        return redis.get(userKey);
+        return redis.smembers(userKey);
     }).then(function (users) {
-        if (users)
+        if (users && users.length)
             return users;
         return db.user.find().exec().then(function (users) {
             if (users) {
@@ -51,9 +53,9 @@ router.get('/', function (req, res, next) {
     }).then(function (users) {
         model.userCount = business.getUser(users);
 
-        return redis.get(commodityKey);
+        return redis.smembers(commodityKey);
     }).then(function (commodity) {
-        if (commodity)
+        if (commodity && commodity.length)
             return commodity;
         return db.commodity.find().exec().then(function (commodity) {
             if (commodity) {
@@ -110,6 +112,17 @@ router.get('/customer', function (req, res, next) {
             {name: "新客人群", sales: 19000000}
         ]
     });
+});
+
+router.get('/test', function (req, res, next) {
+    db.order.find(function (err,order) {
+        if (order.from === 'app') {
+            res.send("ok");
+        }
+        else {
+            res.send('no');
+        }
+    })
 });
 
 module.exports = router;

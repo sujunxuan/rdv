@@ -51,16 +51,21 @@ var business = {
 
     //获取转化率
     getRate: function (uv, count) {
-        if (!uv || !count)
-            return {
-                total: 0,
-                app: 0
-            };
+        //if (!uv || !count)
+        //    return {
+        //        total: 0,
+        //        app: 0
+        //    };
+        //
+        //return {
+        //    total: count.total / (uv.total || 1),
+        //    app: count.app / (uv.app || 1)
+        //};
 
-        return {
-            total: count.total / (uv.total || 1),
-            app: count.app / (uv.app || 1)
-        };
+            return {
+                total: 4.89,
+                app: 5.78
+            };
     },
 
     //获取订单数
@@ -93,8 +98,8 @@ var business = {
             };
 
         return {
-            total: sales.total / (count.total || 1),
-            app: sales.app / (count.app || 1)
+            total: (sales.total / (count.total || 1)).toFixed(2),
+            app: (sales.app / (count.app || 1)).toFixed(2)
         };
     },
 
@@ -144,66 +149,66 @@ var business = {
 
     //获取最近七天销售额
     get7daySales: function (orders) {
-        if (!orders || !orders.length)
-            return [];
+        //if (!orders || !orders.length)
+        //    return [];
+        //
+        //var data = Enumerable.from(orders)
+        //    .where(function (o) {
+        //        return o.createTime.getDate() + 7 > new Date().getDate()
+        //    })
+        //    .groupBy(function (o) {
+        //        return o.createTime.getDate();
+        //    })
+        //    .select(function (g) {
+        //        return {
+        //            day: g.key,
+        //            sales: g.sum(function (o) {
+        //                return o.total;
+        //            })
+        //        }
+        //    }).toArray();
+        //
+        //return data;
 
-        var data = Enumerable.from(orders)
-            .where(function (o) {
-                return o.createTime.getDate() + 7 > new date().getDate()
-            })
-            .groupBy(function (o) {
-                return o.createTime.getDate();
-            })
-            .select(function (g) {
-                return {
-                    day: g.key,
-                    sales: g.sum(function (o) {
-                        return o.total;
-                    })
-                }
-            }).toArray();
-
-        return data;
-
-        //return [
-        //    {day: "4-12", sales: between(10000000, 25000000)},
-        //    {day: "4-13", sales: between(10000000, 25000000)},
-        //    {day: "4-14", sales: between(10000000, 25000000)},
-        //    {day: "4-15", sales: between(10000000, 25000000)},
-        //    {day: "4-16", sales: between(10000000, 25000000)},
-        //    {day: "4-17", sales: between(10000000, 25000000)},
-        //    {day: "4-18", sales: between(10000000, 25000000)}
-        //]
+        return [
+            {day: "4-12", sales: between(10000000, 25000000)},
+            {day: "4-13", sales: between(10000000, 25000000)},
+            {day: "4-14", sales: between(10000000, 25000000)},
+            {day: "4-15", sales: between(10000000, 25000000)},
+            {day: "4-16", sales: between(10000000, 25000000)},
+            {day: "4-17", sales: between(10000000, 25000000)},
+            {day: "4-18", sales: between(10000000, 25000000)}
+        ]
     },
 
     //获取各个城市销售额
     getCitySales: function (orders) {
-        if (!orders || !orders.length)
-            return [];
+        //if (!orders || !orders.length)
+        //    return [];
+        //
+        //var data = Enumerable.from(orders)
+        //    .groupBy(function (o) {
+        //        return o.city;
+        //    })
+        //    .select(function (g) {
+        //        return {
+        //            day: g.key,
+        //            sales: g.sum(function (o) {
+        //                return o.total;
+        //            })
+        //        }
+        //    }).toArray();
+        //
+        //return data;
 
-        var data = Enumerable.from(orders)
-            .groupBy(function (o) {
-                return o.city;
-            })
-            .select(function (g) {
-                return {
-                    day: g.key,
-                    sales: g.sum(function (o) {
-                        return o.total;
-                    })
-                }
-            }).toArray();
-
-        return data;
-
-        //return [
-        //    {city: "上海", val: between(10000000, 25000000)},
-        //    {city: "北京", val: between(10000000, 25000000)},
-        //    {city: "深圳", val: between(10000000, 25000000)},
-        //    {city: "广州", val: between(10000000, 25000000)},
-        //    {city: "杭州", val: between(10000000, 25000000)},
-        //    {city: "南京", val: between(10000000, 25000000)}
-        //]
+        return [
+            {city: "上海", val: between(10000000, 25000000)},
+            {city: "北京", val: between(10000000, 25000000)},
+            {city: "深圳", val: between(10000000, 25000000)},
+            {city: "广州", val: between(10000000, 25000000)},
+            {city: "杭州", val: between(10000000, 25000000)},
+            {city: "南京", val: between(10000000, 25000000)}
+        ]
     },
 
     //获取品类分析数据

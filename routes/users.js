@@ -10,6 +10,7 @@ router.post('/login', function (req, res, next) {
     if (req.body.username === 'admin' && req.body.passwd === '123456') {
         global.isLogin = true;
         res.send({accessGranted: true});
+        return;
     }
     res.send({accessGranted: false});
 });
