@@ -9,7 +9,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    if(!global.isLogin)
+    if (!global.isLogin)
         res.redirect('/users/login')
 
     var orderKey = 'rdv:orders',
@@ -61,6 +61,10 @@ router.get('/', function (req, res, next) {
     }).then(function (commodity) {
         model.uv = business.getUV(commodity);
         model.rate = business.getRate(model.uv, model.orderCount);
+        model.commodity = {
+            count: commodity.length,
+            type: 12
+        };
 
         res.render('index', model);
     });
@@ -68,21 +72,21 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/uv', function (req, res, next) {
-    if(!global.isLogin)
+    if (!global.isLogin)
         res.redirect('/users/login')
 
     res.send("uv data")
 });
 
 router.get('/category', function (req, res, next) {
-    if(!global.isLogin)
+    if (!global.isLogin)
         res.redirect('/users/login')
 
     res.render('category', {});
 });
 
 router.get('/customer', function (req, res, next) {
-    if(!global.isLogin)
+    if (!global.isLogin)
         res.redirect('/users/login')
 
     res.render('customer', {});

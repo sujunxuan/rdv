@@ -133,9 +133,29 @@ var business = {
         };
     },
 
+    //获取实时UV
+    getRealTimeUV: function () {
+
+    },
+
+    //获取最近七天销售额
+    get7daySales: function () {
+
+    },
+
+    //获取各个城市销售额
+    getCitySalse: function () {
+
+    },
+
+    //获取品类分析数据
+    getCategoryData: function () {
+
+    },
+
     //获取用户分析数据
     getCustomerData: function () {
-        
+
     }
 };
 

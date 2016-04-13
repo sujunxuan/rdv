@@ -88,7 +88,7 @@ block content
                     span APP
                     strong(data-count='this', data-from='0', data-to='#{userCount.newApp}', data-duration='1') -
         .col-sm-3
-            .xe-widget.xe-counter-block.xe-counter-block-yellow(data-count='.num', data-from='0', data-to='512', data-duration='1')
+            .xe-widget.xe-counter-block.xe-counter-block-yellow(data-count='.num', data-from='0', data-to='#{commodity.count}', data-duration='1')
                 .xe-upper
                     .xe-icon
                         i.linecons-attach
@@ -98,7 +98,7 @@ block content
                 .xe-lower
                     .border
                     span category
-                    strong 7
+                    strong #{commodity.type}
 
     .panel.panel-default
         .panel-heading

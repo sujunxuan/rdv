@@ -14,8 +14,7 @@ block content
                         table.table.table-small-font.table-bordered.table-striped(cellspacing='0')
                             thead
                                 tr
-                                    th Company
-                                    th(data-priority='1') 人群
+                                    th 人群
                                     th(data-priority='3') 销售额
                                     th(data-priority='3') UV
                                     th(data-priority='3') 转化率
@@ -27,7 +26,6 @@ block content
                                     th
                                         | 主流人群
                                     td 597.74
-                                    td 12:12PM
                                     td 14.81 (2.54%)
                                     td 582.93
                                     td 597.95
@@ -37,7 +35,6 @@ block content
                                     th
                                         | 70s女士
                                     td 597.74
-                                    td 12:12PM
                                     td 14.81 (2.54%)
                                     td 582.93
                                     td 597.95
@@ -47,7 +44,6 @@ block content
                                     th
                                         | 90s丽人
                                     td 597.74
-                                    td 12:12PM
                                     td 14.81 (2.54%)
                                     td 582.93
                                     td 597.95
@@ -57,7 +53,6 @@ block content
                                     th
                                         | 男士人群
                                     td 597.74
-                                    td 12:12PM
                                     td 14.81 (2.54%)
                                     td 582.93
                                     td 597.95
@@ -67,7 +62,6 @@ block content
                                     th
                                         | 新客人群
                                     td 597.74
-                                    td 12:12PM
                                     td 14.81 (2.54%)
                                     td 582.93
                                     td 597.95
@@ -84,6 +78,7 @@ block content
                             var options = {
                                 startScaleValue: 0,
                                 endScaleValue: 35,
+                                showTarget: false,
                                 tooltip: {
                                     customizeText: function () {
                                         return 'Current t&#176: ' + this.value + '&#176C<br>' + 'Average t&#176: ' + this.target + '&#176C';
@@ -119,7 +114,7 @@ block content
                         tr
                             th
                             th(width='25%') 销售额
-                            th(width='25%') 用户数
+                            th(width='25%') 客户数
                             th(width='25%') 订单数
                         tr
                             th 主流人群
