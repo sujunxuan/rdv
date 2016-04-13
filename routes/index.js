@@ -1,18 +1,18 @@
 var express = require('express');
 var Redis = require('ioredis');
 //var co = require('co');
+
 var db = require(__base + 'core/db');
 var business = require(__base + 'core/business');
 
 var router = express.Router();
 var redis = new Redis(32769, '192.168.99.100');
 
-var moment = require('moment');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
     if (!global.isLogin)
-        res.redirect('/users/login')
+        res.redirect('/users/login');
 
     var orderKey = 'rdv:orders',
         userKey = 'rdv:users',
@@ -75,26 +75,41 @@ router.get('/', function (req, res, next) {
 
 });
 
-router.get('/uv', function (req, res, next) {
-    res.send(business.getRealTimeUV());
-});
-
 router.get('/category', function (req, res, next) {
     if (!global.isLogin)
-        res.redirect('/users/login')
+        res.redirect('/users/login');
 
-    res.render('category', {});
+    res.render('category', {
+        list: [
+            {name: "女装", sales: 10000000},
+            {name: "男装", sales: 10000000},
+            {name: "体用", sales: 10000000},
+            {name: "居家", sales: 10000000},
+            {name: "美妆", sales: 10000000},
+            {name: "海淘", sales: 10000000},
+            {name: "食品", sales: 10000000},
+            {name: "母婴", sales: 10000000},
+            {name: "数码", sales: 10000000},
+            {name: "珠宝", sales: 10000000},
+            {name: "图书", sales: 10000000},
+            {name: "汽车", sales: 10000000}
+        ]
+    });
 });
 
 router.get('/customer', function (req, res, next) {
     if (!global.isLogin)
-        res.redirect('/users/login')
+        res.redirect('/users/login');
 
-    res.render('customer', {});
-});
-
-router.get('/test', function (req, res, next) {
-    res.send(moment(new Date()).format(req.query['f']||'mm'));
+    res.render('customer', {
+        list: [
+            {name: "主流人群", sales: 15000000},
+            {name: "70s女士", sales: 20000000},
+            {name: "90s丽人", sales: 23000000},
+            {name: "男士人群", sales: 32000000},
+            {name: "新客人群", sales: 19000000}
+        ]
+    });
 });
 
 module.exports = router;

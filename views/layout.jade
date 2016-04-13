@@ -28,29 +28,8 @@ html(lang='en')
                 img(src='/images/logo-collapsed@2x.png', width='40', alt='')
               a(href='#', data-toggle='mobile-menu')
                 i.fa-bars
-          ul#main-menu.main-menu
-            li.active.opened.active
-              a(href='/')
-                i.linecons-desktop
-                span.title Dashboard
-              ul
-                li.active
-                  a(href='/')
-                    span.title 整体监控
-                li
-                  a(href='/category')
-                    span.title 品类分析
-                li
-                  a(href='/customer')
-                    span.title 用户分析
-            li
-              a(href='layout-variants.html')
-                i.linecons-cog
-                span.title Configuration
-              ul
-                li
-                  a(href='/')
-                    span.title 数据模拟配置
+          block menu
+
       .main-content
         nav.navbar.user-info-navbar(role='navigation')
           ul.user-info-menu.left-links.list-inline.list-unstyled

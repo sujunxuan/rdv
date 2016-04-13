@@ -1,7 +1,30 @@
 extends layout
 
+block menu
+    ul#main-menu.main-menu
+        li.active.opened.active
+            a(href='/')
+                i.linecons-desktop
+                span.title Dashboard
+            ul
+                li.active
+                    a(href='/')
+                        span.title 整体监控
+                li
+                    a(href='/category')
+                        span.title 品类分析
+                li
+                    a(href='/customer')
+                        span.title 用户分析
+        li
+            a(href='layout-variants.html')
+                i.linecons-cog
+                span.title Configuration
+            ul
+                li
+                    a(href='/')
+                        span.title 数据模拟配置
 block content
-
     .row
         .col-sm-3
             .xe-widget.xe-counter-block(data-count='.num', data-from='0', data-to='#{sales.total}', data-duration='2')
@@ -188,6 +211,9 @@ block content
                     name: "销售额",
                     type: "bar",
                     color: '#00b19d'
+                },
+                legend: {
+                    visible: false
                 }
             });
 
@@ -230,8 +256,4 @@ block content
                 $("#bar-10").data("dxPieChart").render();
             });
         });
-        function between(randNumMin, randNumMax) {
-            var randInt = Math.floor((Math.random() * ((randNumMax + 1) - randNumMin)) + randNumMin);
-            return randInt;
-        }
 

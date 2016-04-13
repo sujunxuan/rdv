@@ -147,7 +147,7 @@ var business = {
         if (!orders || !orders.length)
             return [];
 
-        var data =  Enumerable.from(orders)
+        var data = Enumerable.from(orders)
             .where(function (o) {
                 return o.createTime.getDate() + 7 > new date().getDate()
             })
@@ -177,19 +177,37 @@ var business = {
     },
 
     //获取各个城市销售额
-    getCitySales: function () {
-        return [
-            {city: "上海", val: between(10000000, 25000000)},
-            {city: "北京", val: between(10000000, 25000000)},
-            {city: "深圳", val: between(10000000, 25000000)},
-            {city: "广州", val: between(10000000, 25000000)},
-            {city: "杭州", val: between(10000000, 25000000)},
-            {city: "南京", val: between(10000000, 25000000)}
-        ]
+    getCitySales: function (orders) {
+        if (!orders || !orders.length)
+            return [];
+
+        var data = Enumerable.from(orders)
+            .groupBy(function (o) {
+                return o.city;
+            })
+            .select(function (g) {
+                return {
+                    day: g.key,
+                    sales: g.sum(function (o) {
+                        return o.total;
+                    })
+                }
+            }).toArray();
+
+        return data;
+
+        //return [
+        //    {city: "上海", val: between(10000000, 25000000)},
+        //    {city: "北京", val: between(10000000, 25000000)},
+        //    {city: "深圳", val: between(10000000, 25000000)},
+        //    {city: "广州", val: between(10000000, 25000000)},
+        //    {city: "杭州", val: between(10000000, 25000000)},
+        //    {city: "南京", val: between(10000000, 25000000)}
+        //]
     },
 
     //获取品类分析数据
-    getCategoryData: function () {
+    getCategoryData: function (types,orders) {
 
     },
 
