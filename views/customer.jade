@@ -2,3 +2,164 @@
 extends layout
 
 block content
+    .row
+        .col-md-12
+            .panel.panel-default
+                .panel-heading
+                    h3.panel-title 用户人群概述
+                    .panel-options
+                        a(href='#', data-toggle='reload')
+                            i.fa-rotate-right
+                .panel-body
+                    .table-responsive(data-pattern='priority-columns', data-focus-btn-icon='fa-asterisk', data-sticky-table-header='true', data-add-display-all-btn='true', data-add-focus-btn='true')
+                        table.table.table-small-font.table-bordered.table-striped(cellspacing='0')
+                            thead
+                                tr
+                                    th Company
+                                    th(data-priority='1') 人群
+                                    th(data-priority='3') 销售额
+                                    th(data-priority='3') UV
+                                    th(data-priority='3') 转化率
+                                    th(data-priority='3') 订单数
+                                    th(data-priority='6') 客单价
+                                    th(data-priority='6') 客户数
+                            tbody
+                                tr
+                                    th
+                                        | 主流人群
+                                    td 597.74
+                                    td 12:12PM
+                                    td 14.81 (2.54%)
+                                    td 582.93
+                                    td 597.95
+                                    td 597.73
+                                    td 597.73
+                                tr
+                                    th
+                                        | 70s女士
+                                    td 597.74
+                                    td 12:12PM
+                                    td 14.81 (2.54%)
+                                    td 582.93
+                                    td 597.95
+                                    td 597.73
+                                    td 597.73
+                                tr
+                                    th
+                                        | 90s丽人
+                                    td 597.74
+                                    td 12:12PM
+                                    td 14.81 (2.54%)
+                                    td 582.93
+                                    td 597.95
+                                    td 597.73
+                                    td 597.73
+                                tr
+                                    th
+                                        | 男士人群
+                                    td 597.74
+                                    td 12:12PM
+                                    td 14.81 (2.54%)
+                                    td 582.93
+                                    td 597.95
+                                    td 597.73
+                                    td 597.73
+                                tr
+                                    th
+                                        | 新客人群
+                                    td 597.74
+                                    td 12:12PM
+                                    td 14.81 (2.54%)
+                                    td 582.93
+                                    td 597.95
+                                    td 597.73
+                                    td 597.73
+    .row
+        .col-sm-12
+            .panel.panel-default
+                .panel-heading
+                    h3.panel-title 人群分析
+                .panel-body
+                    script(type='text/javascript').
+                        jQuery(document).ready(function ($) {
+                            var options = {
+                                startScaleValue: 0,
+                                endScaleValue: 35,
+                                tooltip: {
+                                    customizeText: function () {
+                                        return 'Current t&#176: ' + this.value + '&#176C<br>' + 'Average t&#176: ' + this.target + '&#176C';
+                                    }
+                                }
+                            };
+                            var junFirst = $.extend({value: 23, color: '#68b828'}, options),
+                                    julFirst = $.extend({value: 27, color: '#4fcdfc'}, options),
+                                    augFirst = $.extend({value: 20, color: '#d5080f'}, options);
+                            var junSecond = $.extend({value: 24, color: '#68b828'}, options),
+                                    julSecond = $.extend({value: 28, color: '#4fcdfc'}, options),
+                                    augSecond = $.extend({value: 30, color: '#d5080f'}, options);
+                            var junThird = $.extend({value: 35, color: '#68b828'}, options),
+                                    julThird = $.extend({value: 24, color: '#4fcdfc'}, options),
+                                    augThird = $.extend({value: 28, color: '#d5080f'}, options);
+                            var junFourth = $.extend({value: 29, color: '#68b828'}, options),
+                                    julFourth = $.extend({value: 24, color: '#4fcdfc'}, options),
+                                    augFourth = $.extend({value: 21, color: '#d5080f'}, options);
+                            $('.june-1').dxBullet(junFirst);
+                            $('.july-1').dxBullet(julFirst);
+                            $('.august-1').dxBullet(augFirst);
+                            $('.june-2').dxBullet(junSecond);
+                            $('.july-2').dxBullet(julSecond);
+                            $('.august-2').dxBullet(augSecond);
+                            $('.june-3').dxBullet(junThird);
+                            $('.july-3').dxBullet(julThird);
+                            $('.august-3').dxBullet(augThird);
+                            $('.june-4').dxBullet(junFourth);
+                            $('.july-4').dxBullet(julFourth);
+                            $('.august-4').dxBullet(augFourth);
+                        });
+                    table.table.table-bordered.table-hover.text-center.middle-align(border='1')
+                        tr
+                            th
+                            th(width='25%') 销售额
+                            th(width='25%') 用户数
+                            th(width='25%') 订单数
+                        tr
+                            th 主流人群
+                            td
+                                .sparkline.june-1
+                            td
+                                .sparkline.july-1
+                            td
+                                .sparkline.august-1
+                        tr
+                            th 70s女士
+                            td
+                                .sparkline.june-2
+                            td
+                                .sparkline.july-2
+                            td
+                                .sparkline.august-2
+                        tr
+                            th 90s丽人
+                            td
+                                .sparkline.june-3
+                            td
+                                .sparkline.july-3
+                            td
+                                .sparkline.august-3
+                        tr
+                            th 男士人群
+                            td
+                                .sparkline.june-4
+                            td
+                                .sparkline.july-4
+                            td
+                                .sparkline.august-4
+                        tr
+                            th 新客人群
+                            td
+                                .sparkline.june-4
+                            td
+                                .sparkline.july-4
+                            td
+                                .sparkline.august-4
+
