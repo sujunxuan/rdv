@@ -31,7 +31,7 @@ router.get('/', function (req, res, next) {
             //设置缓存
             if (orders) {
                 redis.set(orderKey, JSON.stringify(orders));
-                redis.expire(orderKey, 600);
+                redis.expire(orderKey, 60);
             }
             return orders;
         });
@@ -54,7 +54,7 @@ router.get('/', function (req, res, next) {
             //设置缓存
             if (users) {
                 redis.set(userKey, JSON.stringify(users));
-                redis.expire(userKey, 600);
+                redis.expire(userKey, 60);
             }
             return users;
         });
@@ -73,7 +73,7 @@ router.get('/', function (req, res, next) {
             //设置缓存
             if (commodity) {
                 redis.set(commodityKey, JSON.stringify(commodity));
-                redis.expire(commodityKey, 600);
+                redis.expire(commodityKey, 60);
             }
             return commodity;
         });
@@ -85,6 +85,9 @@ router.get('/', function (req, res, next) {
             count: commodity.length,
             type: 12
         };
+
+        redis.set("rdv:model:index", JSON.stringify(model));
+        redis.expire(commodityKey, 100);
 
         res.render('index', model);
     });
@@ -111,7 +114,7 @@ router.get('/category', function (req, res, next) {
             //设置缓存
             if (orders) {
                 redis.set(orderKey, JSON.stringify(orders));
-                redis.expire(orderKey, 600);
+                redis.expire(orderKey, 60);
             }
             return orders;
         });
@@ -129,13 +132,16 @@ router.get('/category', function (req, res, next) {
             //设置缓存
             if (commodity) {
                 redis.set(commodityKey, JSON.stringify(commodity));
-                redis.expire(commodityKey, 600);
+                redis.expire(commodityKey, 60);
             }
             return commodity;
         });
     }).then(function (commodity) {
         //计算品类相关指标
         var list = business.getCategoryData(model.orders, commodity);
+
+        redis.set("rdv:model:category", JSON.stringify(list));
+        redis.expire(commodityKey, 100);
 
         res.render('category', {list: list});
     });
@@ -162,7 +168,7 @@ router.get('/customer', function (req, res, next) {
             //设置缓存
             if (orders) {
                 redis.set(orderKey, JSON.stringify(orders));
-                redis.expire(orderKey, 600);
+                redis.expire(orderKey, 60);
             }
             return orders;
         });
@@ -180,13 +186,16 @@ router.get('/customer', function (req, res, next) {
             //设置缓存
             if (users) {
                 redis.set(userKey, JSON.stringify(users));
-                redis.expire(userKey, 600);
+                redis.expire(userKey, 60);
             }
             return users;
         });
     }).then(function (users) {
         //计算人群相关指标
         var list = business.getCustomerData(users, model.orders);
+
+        redis.set("rdv:model:customer", JSON.stringify(list));
+        redis.expire(commodityKey, 100);
 
         res.render('customer', {list: list});
     });
