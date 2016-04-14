@@ -155,6 +155,7 @@ var business = {
         var data = Enumerable.from(orders)
             .where(function (o) {
                 var now = new Date();
+                o.createTime = new Date(o.createTime);
                 return new Date(o.createTime.getFullYear(), o.createTime.getMonth(), o.createTime.getDate() + 7)
                     > new Date(now.getFullYear(), now.getMonth(), now.getDate());
             })

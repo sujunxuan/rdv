@@ -22,16 +22,16 @@ router.get('/', function (req, res, next) {
     var model = {};
 
     //从缓存中查询订单数据
-    redis.smembers(orderKey).then(function (orders) {
+    redis.get(orderKey).then(function (orders) {
         if (orders && orders.length)
-            return orders;
+            return JSON.parse(orders);
 
         //从DB中查询订单数据
         return db.order.find().exec().then(function (orders) {
             //设置缓存
             if (orders) {
-                //redis.sadd(orderKey, orders);
-                //redis.expire(orderKey, 600);
+                redis.set(orderKey, JSON.stringify(orders));
+                redis.expire(orderKey, 600);
             }
             return orders;
         });
@@ -44,17 +44,17 @@ router.get('/', function (req, res, next) {
         model.price = business.getPrice(model.sales, model.orderCount);
 
         //从缓存中查询用户数据
-        return redis.smembers(userKey);
+        return redis.get(userKey);
     }).then(function (users) {
         if (users && users.length)
-            return users;
+            return JSON.parse(users);
 
         //从DB中查询用户数据
         return db.user.find().exec().then(function (users) {
             //设置缓存
             if (users) {
-                //redis.sadd(userKey, users);
-                //redis.expire(userKey, 600);
+                redis.set(userKey, JSON.stringify(users));
+                redis.expire(userKey, 600);
             }
             return users;
         });
@@ -63,17 +63,17 @@ router.get('/', function (req, res, next) {
         model.userCount = business.getUser(users);
 
         //从缓存中查询商品数据
-        return redis.smembers(commodityKey);
+        return redis.get(commodityKey);
     }).then(function (commodity) {
         if (commodity && commodity.length)
-            return commodity;
+            return JSON.parse(commodity);
 
         //从DB中查询商品数据
         return db.commodity.find().exec().then(function (commodity) {
             //设置缓存
             if (commodity) {
-                //redis.sadd(commodityKey, commodity);
-                //redis.expire(commodityKey, 600);
+                redis.set(commodityKey, JSON.stringify(commodity));
+                redis.expire(commodityKey, 600);
             }
             return commodity;
         });
@@ -102,16 +102,16 @@ router.get('/category', function (req, res, next) {
     var model = {};
 
     //从缓存中查询订单数据
-    redis.smembers(orderKey).then(function (orders) {
+    redis.get(orderKey).then(function (orders) {
         if (orders && orders.length)
-            return orders;
+            return JSON.parse(orders);
 
         //从DB中查询订单数据
         return db.order.find().exec().then(function (orders) {
             //设置缓存
             if (orders) {
-                //redis.sadd(orderKey, orders);
-                //redis.expire(orderKey, 600);
+                redis.set(orderKey, JSON.stringify(orders));
+                redis.expire(orderKey, 600);
             }
             return orders;
         });
@@ -119,17 +119,17 @@ router.get('/category', function (req, res, next) {
         model.orders = orders;
 
         //从缓存中查询商品数据
-        return redis.smembers(commodityKey);
+        return redis.get(commodityKey);
     }).then(function (commodity) {
         if (commodity && commodity.length)
-            return commodity;
+            return JSON.parse(commodity);
 
         //从DB中查询商品数据
         return db.commodity.find().exec().then(function (commodity) {
             //设置缓存
             if (commodity) {
-                //redis.sadd(commodityKey, commodity);
-                //redis.expire(commodityKey, 600);
+                redis.set(commodityKey, JSON.stringify(commodity));
+                redis.expire(commodityKey, 600);
             }
             return commodity;
         });
@@ -153,16 +153,16 @@ router.get('/customer', function (req, res, next) {
     var model = {};
 
     //从缓存中查询订单数据
-    redis.smembers(orderKey).then(function (orders) {
+    redis.get(orderKey).then(function (orders) {
         if (orders && orders.length)
-            return orders;
+            return JSON.parse(orders);
 
         //从DB中查询订单数据
         return db.order.find().exec().then(function (orders) {
             //设置缓存
             if (orders) {
-                //redis.sadd(orderKey, orders);
-                //redis.expire(orderKey, 600);
+                redis.set(orderKey, JSON.stringify(orders));
+                redis.expire(orderKey, 600);
             }
             return orders;
         });
@@ -170,17 +170,17 @@ router.get('/customer', function (req, res, next) {
         model.orders = orders;
 
         //从缓存中查询商品数据
-        return redis.smembers(userKey);
+        return redis.get(userKey);
     }).then(function (users) {
         if (users && users.length)
-            return users;
+            return JSON.parse(users);
 
         //从DB中查询商品数据
         return db.user.find().exec().then(function (users) {
             //设置缓存
             if (users) {
-                //redis.sadd(userKey, users);
-                //redis.expire(userKey, 600);
+                redis.set(userKey, JSON.stringify(users));
+                redis.expire(userKey, 600);
             }
             return users;
         });
