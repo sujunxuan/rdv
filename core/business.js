@@ -118,13 +118,13 @@ var business = {
             appNewCount = 0;
 
         users.forEach(function (user) {
-            if (user.tag === "001") {
+            if (user.tag === "新客人群") {
                 newCount += 1;
             }
 
             if (user.from === "app") {
                 appCount += 1;
-                if (user.tag === "001") {
+                if (user.tag === "新客人群") {
                     appNewCount += 1;
                 }
             }
