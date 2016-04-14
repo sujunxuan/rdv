@@ -10,19 +10,19 @@ router.get('/', function (req, res, next) {
 
     Random.extend({
         location: function () {
-            var citys = ['上海', '上海', '上海', '上海', '北京', '广州', '深圳', '杭州', '南京',]
+            var citys = ['上海', '上海', '上海', '北京', '广州', '深圳', '杭州', '南京'];
             return this.pick(citys)
         },
         category: function () {
-            var categorys = ['女装', '男装', '体育', '居家', '美妆', '海淘', '食品', '母婴', '数码', '珠宝', '图书', '汽车']
+            var categorys = ['女装', '女装', '女装', '女装', '男装', '体育', '居家', '美妆', '海淘', '食品', '母婴', '数码', '珠宝', '图书', '汽车'];
             return this.pick(categorys)
         },
         tag: function () {
-            var tags = ['主流人群', '70s女士', '90s丽人', '男士人群', '新客人群']
+            var tags = ['90s丽人', '90s丽人', '90s丽人', '主流人群', '70s女士', '男士人群', '新客人群'];
             return this.pick(tags);
         },
         from: function () {
-            var froms = ['app', 'web', 'pc', 'wap', 'wx']
+            var froms = ['app', 'app', 'app', 'web', 'pc', 'wap', 'wx'];
             return this.pick(froms);
         },
         createTime: function () {

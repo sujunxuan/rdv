@@ -199,8 +199,54 @@ var business = {
     },
 
     //获取品类分析数据
-    getCategoryData: function (types, orders) {
+    getCategoryData: function (orders, commoditys) {
+        if (!orders || !orders.length || !commoditys || !commoditys.length)
+            return [];
 
+        var uvs = Enumerable.from(commoditys)
+            .groupBy(function (c) {
+                return c.type;
+            })
+            .select(function (g) {
+                return {
+                    name: g.key(),
+                    uv: g.sum(function (c) {
+                        return c.uv;
+                    })
+                }
+            });
+
+        var data = Enumerable.from(orders)
+            .groupBy(function (o) {
+                return o.ctype;
+            })
+            .select(function (g) {
+                return {
+                    name: g.key(),
+                    sales: g.sum(function (o) {
+                        return o.total;
+                    }),
+                    app: g.where(function (o) {
+                        return o.from === "app";
+                    }).sum(function (o) {
+                        return o.total;
+                    }),
+                    order: g.count(),
+                    user: g.distinct(function (o) {
+                        return o.uid;
+                    }).count(),
+                    new: g.count(function (o) {
+                        return o.new === 'true';
+                    }),
+                    uv: uvs.where(function (u) {
+                        return u.name === g.key();
+                    }).sum(function (u) {
+                        return u.uv;
+                    })
+                }
+            }).toArray();
+
+        return data;
     },
 
     //获取用户分析数据

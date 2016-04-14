@@ -50,7 +50,6 @@ block content
                                     th(data-priority='1') 销售额
                                     th(data-priority='3') 移动占比
                                     th(data-priority='1') UV
-                                    th(data-priority='3') 转化率
                                     th(data-priority='3') 订单数
                                     th(data-priority='6') 客户数
                                     th(data-priority='6') 新客数
@@ -60,9 +59,8 @@ block content
                                         th
                                             | #{m.name}
                                         td #{m.sales}
-                                        td #{m.app}
+                                        td #{((m.app / m.sales) * 100).toFixed(2)}%
                                         td #{m.uv}
-                                        td #{m.rate}
                                         td #{m.order}
                                         td #{m.user}
                                         td #{m.new}

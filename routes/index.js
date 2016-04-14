@@ -11,19 +11,22 @@ var redis = new Redis(32769, '192.168.99.100');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    //if (!global.isLogin) {
-    //    res.redirect('/users/login');
-    //    return;
-    //}
+    if (!global.isLogin) {
+        res.redirect('/users/login');
+        return;
+    }
 
     var orderKey = 'rdv:orders',
         userKey = 'rdv:users',
         commodityKey = 'rdv:commodity';
     var model = {};
 
+    //从缓存中查询订单数据
     redis.smembers(orderKey).then(function (orders) {
         if (orders && orders.length)
             return orders;
+
+        //从DB中查询订单数据
         return db.order.find().exec().then(function (orders) {
             //设置缓存
             if (orders) {
@@ -33,17 +36,22 @@ router.get('/', function (req, res, next) {
             return orders;
         });
     }).then(function (orders) {
+        //计算订单相关指标
         model.sales = business.getSales(orders);
         model.sevenDaySales = business.get7daySales(orders);
         model.citySales = business.getCitySales(orders);
         model.orderCount = business.getOrderCount(orders);
         model.price = business.getPrice(model.sales, model.orderCount);
 
+        //从缓存中查询用户数据
         return redis.smembers(userKey);
     }).then(function (users) {
         if (users && users.length)
             return users;
+
+        //从DB中查询用户数据
         return db.user.find().exec().then(function (users) {
+            //设置缓存
             if (users) {
                 //redis.sadd(userKey, users);
                 //redis.expire(userKey, 600);
@@ -51,13 +59,18 @@ router.get('/', function (req, res, next) {
             return users;
         });
     }).then(function (users) {
+        //计算用户相关指标
         model.userCount = business.getUser(users);
 
+        //从缓存中查询商品数据
         return redis.smembers(commodityKey);
     }).then(function (commodity) {
         if (commodity && commodity.length)
             return commodity;
+
+        //从DB中查询商品数据
         return db.commodity.find().exec().then(function (commodity) {
+            //设置缓存
             if (commodity) {
                 //redis.sadd(commodityKey, commodity);
                 //redis.expire(commodityKey, 600);
@@ -65,6 +78,7 @@ router.get('/', function (req, res, next) {
             return commodity;
         });
     }).then(function (commodity) {
+        //计算商品相关指标
         model.uv = business.getUV(commodity);
         model.rate = business.getRate(model.uv, model.orderCount);
         model.commodity = {
@@ -78,25 +92,54 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/category', function (req, res, next) {
-    if (!global.isLogin)
-        res.redirect('/users/login');
+    //if (!global.isLogin) {
+    //    res.redirect('/users/login');
+    //    return;
+    //}
 
-    res.render('category', {
-        list: [
-            {name: "女装", sales: 10000000},
-            {name: "男装", sales: 10000000},
-            {name: "体用", sales: 10000000},
-            {name: "居家", sales: 10000000},
-            {name: "美妆", sales: 10000000},
-            {name: "海淘", sales: 10000000},
-            {name: "食品", sales: 10000000},
-            {name: "母婴", sales: 10000000},
-            {name: "数码", sales: 10000000},
-            {name: "珠宝", sales: 10000000},
-            {name: "图书", sales: 10000000},
-            {name: "汽车", sales: 10000000}
-        ]
+    var orderKey = 'rdv:orders',
+        commodityKey = 'rdv:commodity';
+    var model = {};
+
+    //从缓存中查询订单数据
+    redis.smembers(orderKey).then(function (orders) {
+        if (orders && orders.length)
+            return orders;
+
+        //从DB中查询订单数据
+        return db.order.find().exec().then(function (orders) {
+            //设置缓存
+            if (orders) {
+                //redis.sadd(orderKey, orders);
+                //redis.expire(orderKey, 600);
+            }
+            return orders;
+        });
+    }).then(function (orders) {
+        model.orders = orders;
+
+        //从缓存中查询商品数据
+        return redis.smembers(commodityKey);
+    }).then(function (commodity) {
+        if (commodity && commodity.length)
+            return commodity;
+
+        //从DB中查询商品数据
+        return db.commodity.find().exec().then(function (commodity) {
+            //设置缓存
+            if (commodity) {
+                //redis.sadd(commodityKey, commodity);
+                //redis.expire(commodityKey, 600);
+            }
+            return commodity;
+        });
+    }).then(function (commodity) {
+        //计算品类相关指标
+        var list = business.getCategoryData(model.orders, commodity);
+
+        res.render('category', {list: list});
     });
+
 });
 
 router.get('/customer', function (req, res, next) {
@@ -115,7 +158,7 @@ router.get('/customer', function (req, res, next) {
 });
 
 router.get('/test', function (req, res, next) {
-    db.order.find(function (err,order) {
+    db.order.find(function (err, order) {
         if (order.from === 'app') {
             res.send("ok");
         }
