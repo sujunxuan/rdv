@@ -24,8 +24,13 @@ router.get('/', function (req, res, next) {
         from: function () {
             var froms = ['app', 'web', 'pc', 'wap', 'wx']
             return this.pick(froms);
+        },
+        createTime: function () {
+            var now = new Date();
+            var start = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+            return new Date(this.integer(start.getTime(), now.getTime()));
         }
-    })
+    });
 
     setInterval(function () {
         var or = new db.order();
@@ -38,7 +43,7 @@ router.get('/', function (req, res, next) {
         or.from = Random.from();
         or.city = Random.location();
         or.ctype = Random.category();
-        or.createTime = new Date();
+        or.createTime = Random.createTime();
 
         or.save();
     }, 100);
@@ -52,10 +57,7 @@ router.get('/', function (req, res, next) {
         u.tag = Random.tag();
         u.from = Random.from();
 
-        u.save(function (err) {
-            if (err)
-                console.log(err);
-        });
+        u.save();
     }, 200);
 
     setInterval(function () {
@@ -72,5 +74,6 @@ router.get('/', function (req, res, next) {
 
     res.send('ok');
 });
+
 
 module.exports = router;

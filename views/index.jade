@@ -194,7 +194,7 @@ block content
                 }
             });
 
-            var socket = io.connect('http://127.0.0.1:3000');
+            var socket = io.connect('/');
             socket.on('uv', function (data) {
                 if(uv_data.length>30)
                     uv_data.shift();
