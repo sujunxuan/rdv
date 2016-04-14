@@ -267,7 +267,7 @@ var business = {
                 return {
                     name: g.key(),
                     user: g.count(),
-                    orders: tagOrders.count(),
+                    order: tagOrders.count(),
                     sales: tagOrders.sum(function (o) {
                         return o.total;
                     })
