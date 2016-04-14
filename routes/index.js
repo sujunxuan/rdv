@@ -11,10 +11,10 @@ var redis = new Redis(32769, '192.168.99.100');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    if (!global.isLogin) {
-        res.redirect('/users/login');
-        return;
-    }
+    //if (!global.isLogin) {
+    //    res.redirect('/users/login');
+    //    return;
+    //}
 
     var orderKey = 'rdv:orders',
         userKey = 'rdv:users',

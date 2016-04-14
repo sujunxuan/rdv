@@ -221,7 +221,6 @@ block content
                 //palette: 'Soft Pastel'
             });
 
-            var xenonPalette = ['#0e62c7', '#fcd036', '#4fcdfc', '#00b19d', '#ff6264', '#f7aa47', '#68b828', '#7c38bc'];
             var dataSource = !{JSON.stringify(citySales)}, timer;
             $("#bar-10").dxPieChart({
                 dataSource: dataSource,
@@ -242,6 +241,7 @@ block content
                 series: [{
                     type: "pie",
                     argumentField: "city",
+                    valueField: "sales",
                     label: {
                         visible: true,
                         connector: {
