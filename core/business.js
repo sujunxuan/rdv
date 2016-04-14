@@ -250,8 +250,31 @@ var business = {
     },
 
     //获取用户分析数据
-    getCustomerData: function () {
+    getCustomerData: function (users, orders) {
+        if (!users || !users.length || !orders || !orders.length)
+            return [];
 
+        var orders = Enumerable.from(orders);
+        var data = Enumerable.from(users)
+            .groupBy(function (u) {
+                return u.tag;
+            })
+            .select(function (g) {
+                var tagOrders = orders.where(function (o) {
+                    return o.utag === g.key();
+                });
+
+                return {
+                    name: g.key(),
+                    user: g.count(),
+                    orders: tagOrders.count(),
+                    sales: tagOrders.sum(function (o) {
+                        return o.total;
+                    })
+                }
+            }).toArray();
+
+        return data;
     }
 };
 

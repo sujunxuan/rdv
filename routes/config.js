@@ -37,6 +37,7 @@ router.get('/', function (req, res, next) {
         or.id = Random.date('yyyyMMddhhmmssSS');
         or.cid = Random.natural(1, 100);
         or.uid = Random.natural(1, 100);
+        or.utag = Random.tag();
         or.count = Random.natural(1, 5);
         or.total = Random.natural(10, 10000);
         or.new = Random.boolean();

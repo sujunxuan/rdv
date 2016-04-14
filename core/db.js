@@ -25,6 +25,7 @@ var order = new Schema({
     id: String,
     cid: String,
     uid: String,
+    utag: String,
     count: Number,
     total: Number,
     new: String,

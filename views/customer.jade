@@ -41,8 +41,6 @@ block content
                                 tr
                                     th 人群
                                     th(data-priority='3') 销售额
-                                    th(data-priority='3') UV
-                                    th(data-priority='3') 转化率
                                     th(data-priority='3') 订单数
                                     th(data-priority='6') 客单价
                                     th(data-priority='6') 客户数
@@ -52,10 +50,8 @@ block content
                                         th
                                             | #{m.name}
                                         td #{m.sales}
-                                        td #{m.uv}
-                                        td #{m.rate}
                                         td #{m.order}
-                                        td #{m.price}
+                                        td #{(m.sales / m.order).toFixed(2)}
                                         td #{m.user}
     .row
         .col-sm-12
