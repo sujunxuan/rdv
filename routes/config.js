@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
 
     Random.extend({
         location: function () {
-            var citys = ['上海', '北京', '广州', '深圳', '杭州', '南京',]
+            var citys = ['上海', '上海', '上海', '上海', '北京', '广州', '深圳', '杭州', '南京',]
             return this.pick(citys)
         },
         category: function () {

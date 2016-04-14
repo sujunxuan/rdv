@@ -150,7 +150,6 @@ block content
         jQuery(document).ready(function ($) {
             var uv_data = [];
 
-
             $("#range-chart").dxChart({
                 dataSource: uv_data,
                 commonPaneSettings: {
@@ -196,7 +195,7 @@ block content
 
             var socket = io.connect('/');
             socket.on('uv', function (data) {
-                if(uv_data.length>30)
+                if (uv_data.length > 30)
                     uv_data.shift();
 
                 uv_data.push(data);
@@ -211,11 +210,15 @@ block content
                     valueField: "sales",
                     name: "销售额",
                     type: "bar",
-                    color: '#00b19d'
+                    color: '#00b19d',
+                    label: {
+                        visible: true
+                    }
                 },
                 legend: {
                     visible: false
                 }
+                //palette: 'Soft Pastel'
             });
 
             var xenonPalette = ['#0e62c7', '#fcd036', '#4fcdfc', '#00b19d', '#ff6264', '#f7aa47', '#68b828', '#7c38bc'];
@@ -225,6 +228,7 @@ block content
                 tooltip: {
                     enabled: true,
                     format: "millions",
+                    precision: 2,
                     customizeText: function () {
                         return this.argumentText + "<br/>" + this.valueText;
                     }
@@ -232,22 +236,24 @@ block content
                 size: {
                     height: 300
                 },
-                pointClick: function (point) {
-                    point.showTooltip();
-                    clearTimeout(timer);
-                    timer = setTimeout(function () {
-                        point.hideTooltip();
-                    }, 2000);
-                    $("select option:contains(" + point.argument + ")").prop("selected", true);
-                },
                 legend: {
-                    visible: false
+                    visible: true
                 },
                 series: [{
-                    type: "doughnut",
-                    argumentField: "city"
+                    type: "pie",
+                    argumentField: "city",
+                    label: {
+                        visible: true,
+                        connector: {
+                            visible: true,
+                            width: 4
+                        },
+                        customizeText: function (segment) {
+                            return segment.percentText;
+                        }
+                    }
                 }],
-                palette: xenonPalette
+                palette: 'Soft'
             });
 
             // Resize charts
