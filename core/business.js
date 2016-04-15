@@ -185,7 +185,7 @@ var business = {
         if (!orders || !orders.length)
             return [];
 
-        var data = Enumerable.from(orders)
+        return Enumerable.from(orders)
             .where(function (o) {
                 var now = new Date();
                 o.createTime = new Date(o.createTime);
@@ -207,8 +207,6 @@ var business = {
                 return new Date(d.day);
             })
             .toArray();
-
-        return data;
     },
 
     /***
@@ -220,7 +218,7 @@ var business = {
         if (!orders || !orders.length)
             return [];
 
-        var data = Enumerable.from(orders)
+        return Enumerable.from(orders)
             .groupBy(function (o) {
                 return o.city;
             })
@@ -233,8 +231,6 @@ var business = {
                 }
             })
             .toArray();
-
-        return data;
     },
 
     /***
@@ -260,7 +256,7 @@ var business = {
                 }
             });
 
-        var data = Enumerable.from(orders)
+        return Enumerable.from(orders)
             .groupBy(function (o) {
                 return o.ctype;
             })
@@ -290,8 +286,6 @@ var business = {
                 }
             })
             .toArray();
-
-        return data;
     },
 
     /***
@@ -305,7 +299,7 @@ var business = {
             return [];
 
         var orders = Enumerable.from(orders);
-        var data = Enumerable.from(users)
+        return Enumerable.from(users)
             .groupBy(function (u) {
                 return u.tag;
             })
@@ -324,8 +318,6 @@ var business = {
                 }
             })
             .toArray();
-
-        return data;
     }
 };
 
