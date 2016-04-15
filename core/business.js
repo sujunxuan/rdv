@@ -3,7 +3,11 @@ var Enumerable = require('linq');
 
 var business = {
 
-    //获取销售额
+    /**
+     * 获取销售额
+     * @param orders
+     * @returns {{total: number, app: number}}
+     */
     getSales: function (orders) {
         if (!orders || !orders.length)
             return {
@@ -27,7 +31,11 @@ var business = {
         };
     },
 
-    //获取UV
+    /***
+     * 获取UV
+     * @param commoditys
+     * @returns {{total: number, app: number}}
+     */
     getUV: function (commoditys) {
         if (!commoditys || !commoditys.length)
             return {
@@ -49,7 +57,12 @@ var business = {
         };
     },
 
-    //获取转化率
+    /***
+     * 获取转化率
+     * @param uv
+     * @param count
+     * @returns {{total: number, app: number}}
+     */
     getRate: function (uv, count) {
         //if (!uv || !count)
         //    return {
@@ -68,7 +81,11 @@ var business = {
         };
     },
 
-    //获取订单数
+    /***
+     * 获取订单数
+     * @param orders
+     * @returns {{total: number, app: number}}
+     */
     getOrderCount: function (orders) {
         if (!orders || !orders.length)
             return {
@@ -89,7 +106,12 @@ var business = {
         };
     },
 
-    //获取客单价
+    /***
+     * 获取客单价
+     * @param sales
+     * @param count
+     * @returns {{total: number, app: number}}
+     */
     getPrice: function (sales, count) {
         if (!sales || !count)
             return {
@@ -103,7 +125,11 @@ var business = {
         };
     },
 
-    //获取用户数
+    /***
+     * 获取用户数
+     * @param users
+     * @returns {{total: number, app: number}}
+     */
     getUser: function (users) {
         if (!users || !users.length)
             return {
@@ -138,7 +164,10 @@ var business = {
         };
     },
 
-    //获取实时UV
+    /***
+     * 获取实时UV
+     * @returns {{time: string, uv: number}}
+     */
     getRealTimeUV: function () {
 
         return {
@@ -147,7 +176,11 @@ var business = {
         }
     },
 
-    //获取最近七天销售额
+    /***
+     * 获取最近七天销售额
+     * @param orders
+     * @returns {*}
+     */
     get7daySales: function (orders) {
         if (!orders || !orders.length)
             return [];
@@ -178,7 +211,11 @@ var business = {
         return data;
     },
 
-    //获取各个城市销售额
+    /***
+     * 获取各个城市销售额
+     * @param orders
+     * @returns {*}
+     */
     getCitySales: function (orders) {
         if (!orders || !orders.length)
             return [];
@@ -194,12 +231,18 @@ var business = {
                         return o.total;
                     })
                 }
-            }).toArray();
+            })
+            .toArray();
 
         return data;
     },
 
-    //获取品类分析数据
+    /***
+     * 获取品类分析数据
+     * @param orders
+     * @param commoditys
+     * @returns {*}
+     */
     getCategoryData: function (orders, commoditys) {
         if (!orders || !orders.length || !commoditys || !commoditys.length)
             return [];
@@ -245,12 +288,18 @@ var business = {
                         return u.uv;
                     })
                 }
-            }).toArray();
+            })
+            .toArray();
 
         return data;
     },
 
-    //获取用户分析数据
+    /***
+     * 获取用户分析数据
+     * @param users
+     * @param orders
+     * @returns {*}
+     */
     getCustomerData: function (users, orders) {
         if (!users || !users.length || !orders || !orders.length)
             return [];
@@ -273,12 +322,19 @@ var business = {
                         return o.total;
                     })
                 }
-            }).toArray();
+            })
+            .toArray();
 
         return data;
     }
 };
 
+/***
+ * 生成随机数
+ * @param randNumMin
+ * @param randNumMax
+ * @returns {number}
+ */
 function between(randNumMin, randNumMax) {
     var randInt = Math.floor((Math.random() * ((randNumMax + 1) - randNumMin)) + randNumMin);
     return randInt;

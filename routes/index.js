@@ -255,9 +255,15 @@ router.get('/customer2', function (req, res, next) {
         }
 
         //查询订单数据
-        var orders = yield redis.get(orderKey);
-        if (orders)
+        var or = redis.get(orderKey);
+        var ur = redis.get(userKey);
+
+        var orders = yield or;
+        var users = yield ur;
+
+        if (orders) {
             orders = JSON.parse(orders);
+        }
         else {
             orders = yield db.order.find().exec();
 
@@ -269,7 +275,6 @@ router.get('/customer2', function (req, res, next) {
         }
 
         //查询用户数据
-        var users = yield redis.get(userKey);
         if (users) {
             users = JSON.parse(users);
         }
@@ -284,7 +289,6 @@ router.get('/customer2', function (req, res, next) {
 
         //计算人群相关指标
         list = business.getCustomerData(users, orders);
-
         if (list && list.length) {
             redis.set(modelKey, JSON.stringify(list));
             redis.expire(modelKey, 100);
